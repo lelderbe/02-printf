@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/23 16:44:26 by lelderbe         ###   ########.fr       */
+/*   Created: 2020/10/30 17:38:35 by lelderbe          #+#    #+#             */
+/*   Updated: 2020/11/08 20:31:24 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#include "libft.h"
 
-# include <unistd.h>
-
-#endif
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	if (n == 0 || s1 == s2)
+		return (0);
+	while (n)
+	{
+		if (*((char *)s1) != *((char *)s2))
+			return (*((unsigned char *)s1) - *((unsigned char *)s2));
+		s1++;
+		s2++;
+		n--;
+	}
+	return (0);
+}
