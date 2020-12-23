@@ -6,7 +6,7 @@
 #    By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/14 15:22:49 by lelderbe          #+#    #+#              #
-#    Updated: 2020/12/23 16:47:13 by lelderbe         ###   ########.fr        #
+#    Updated: 2020/12/23 17:10:54 by lelderbe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ OBJS		= ${SRCS:.c=.o}
 #BONUS_OBJS	= ${BONUS_SRCS:.c=.o}
 
 NAME		= libftprintf.a
+LIBFT_NAME	= libft.a
+LIBFT_DIR	= libft
 
 CC			= gcc
 
@@ -37,17 +39,21 @@ RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 
 %.o:		%.c ${HEADERS}
-			cd libft && ${MAKE} all
+			#cd ${LIBFT_DIR} && ${MAKE} all
+			${MAKE} -C ${LIBFT_DIR} all
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all:		${NAME}
 
-${NAME}:	LIBFT ${OBJS}
-			cp libft/libft.a ${NAME}
+#${NAME}:	LIBFT ${OBJS}
+${NAME}:	${OBJS}
+			cp ${LIBFT_DIR}/${LIBFT_NAME} ${NAME}
+			#${AR} rc ${NAME} ${OBJS} libft/*.o
 			${AR} rc ${NAME} ${OBJS}
 
 LIBFT:		RULE
-			cd libft && ${MAKE} all
+			#cd libft && ${MAKE} all
+			${MAKE} -C ${LIBFT_DIR} all
 
 RULE:
 
