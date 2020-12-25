@@ -15,10 +15,11 @@
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	int			i;
-	char		c;
-	char		*s;
-	unsigned	u;
+	//int			i;
+	//char		c;
+	//char		*s;
+	//unsigned	u;
+	t_spec		*spec;
 
 	va_start(ap, format);
 	while (*format)
@@ -29,6 +30,13 @@ int		ft_printf(const char *format, ...)
 			format++;
 			continue ;
 		}
+		format++;
+		spec = parse(&format, &ap);
+		//printf("\ntype: %c\n", spec->type);
+		//printf("\nval.d: %ld\n", spec->value.d);
+		ft_putnbr_fd(spec->value.d, 1);
+		free(spec);
+		/*
 		format++;
 		if (*format == 'c')
 		{
@@ -54,7 +62,8 @@ int		ft_printf(const char *format, ...)
 		{
 			ft_putchar_fd(*format, 1);
 		}
-		format++;
+		*/
+		//format++;
 	}
 	va_end(ap);
 	return (0);
