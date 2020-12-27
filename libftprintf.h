@@ -19,23 +19,24 @@
 
 typedef struct		s_spec {
 	struct {
-		size_t	sign : 1;
+		size_t	left : 1;
 		size_t	zero : 1;
 	}				flags;
-	size_t			width;
-	size_t			precision;
+	int				width;
+	int				precision;
 	char			type;
 	char			*buf;
 	union {
-		ptrdiff_t	p;
-		ptrdiff_t	s;
+		void		*p;
+		char		*s;
 		size_t		u;
 		size_t		x;
 		size_t		xx;
 		size_t		c;
-		ssize_t		d;
-		ssize_t		i;
+		int			d;
+		int			i;
 	}				value;
+	char			*txt;
 }					t_spec;
 
 t_spec				*parse(const char **s, va_list *ap);
