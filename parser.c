@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/25 14:58:24 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/28 15:57:14 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ t_spec	*parse(const char **s, va_list *ap)
 				ptr++;
 			}
 	}
+	// type
 	if (*ptr == 'd')
 	{
 		result->type = 'd';
@@ -125,6 +126,20 @@ t_spec	*parse(const char **s, va_list *ap)
 		result->type = 'u';
 		result->value.u = va_arg(*ap, int);
 	}
+	else if (*ptr == 'x')
+	{
+		result->type = 'x';
+		result->value.x = va_arg(*ap, int);
+	}
+	else if (*ptr == 'X')
+	{
+		result->type = 'X';
+		result->value.x = va_arg(*ap, int);
+	}
+	else if (*ptr == '%')
+	{
+		result->type = '%';
+	}
 	else
 	{
 		// add char
@@ -137,17 +152,17 @@ t_spec	*parse(const char **s, va_list *ap)
 	printf(" ----- elem: ------\n");
 	printf("flags.left: %d\n", result->flags.left);
 	printf("flags.zero: %d\n", result->flags.zero);
-	printf("width: %lu\n", result->width);
-	printf("precision: %lu\n", result->precision);
+	printf("width: %d\n", result->width);
+	printf("precision: %d\n", result->precision);
 	printf("type: %c\n", result->type);
-	printf("value.p: %td\n", result->value.p);
-	printf("value.s: %td\n", result->value.s);
+	printf("value.p: %p\n", result->value.p);
+	printf("value.s: %p\n", result->value.s);
 	printf("value.u: %ld\n", result->value.u);
 	printf("value.x: %ld\n", result->value.x);
 	printf("value.xx: %ld\n", result->value.xx);
 	printf("value.c: %zu\n", result->value.c);
-	printf("value.d: %ld\n", result->value.d);
-	printf("value.i: %ld\n", result->value.i);
+	printf("value.d: %d\n", result->value.d);
+	printf("value.i: %d\n", result->value.i);
 	printf("*txt: %p\n", result->txt);
 	printf(" ----- ----- ------\n");
 	*/

@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/25 14:20:44 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/28 16:36:57 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ typedef struct		s_spec {
 	int				width;
 	int				precision;
 	char			type;
-	char			*buf;
 	union {
 		void		*p;
 		char		*s;
-		size_t		u;
-		size_t		x;
-		size_t		xx;
+		unsigned int u;
+		unsigned int x;
 		size_t		c;
 		int			d;
 		int			i;
