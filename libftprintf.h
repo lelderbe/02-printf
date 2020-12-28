@@ -26,7 +26,8 @@ typedef struct		s_spec {
 	int				precision;
 	char			type;
 	union {
-		void		*p;
+		size_t		p;
+		void		*p2;
 		char		*s;
 		unsigned int u;
 		unsigned int x;

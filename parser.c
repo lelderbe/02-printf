@@ -136,6 +136,13 @@ t_spec	*parse(const char **s, va_list *ap)
 		result->type = 'X';
 		result->value.x = va_arg(*ap, int);
 	}
+	else if (*ptr == 'p')
+	{
+		result->type = 'p';
+		//result->value.p = va_arg(*ap, unsigned long);
+		//result->value.p = va_arg(*ap, size_t);
+		result->value.p2 = va_arg(*ap, void*);
+	}
 	else if (*ptr == '%')
 	{
 		result->type = '%';

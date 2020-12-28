@@ -167,7 +167,7 @@ char		*ft_itoa_u(size_t n)
 	i = length - 1;
 	while (i >= j)
 	{
-		result[i] = '0' + (n < 0 ? -(n % 10) : (n % 10));
+		result[i] = '0' + (n % 10);
 		n = n / 10;
 		i--;
 	}
@@ -257,6 +257,20 @@ char	*get_u_result(t_spec *spec)
 	return (result);
 }
 
+char	*get_p_result(t_spec *spec)
+{
+	//char	*result;
+	//int		size;
+	//int		i;
+	//size_t	u;
+	char	*itoa;
+	//char	*ptr;
+
+	itoa = ft_itoa_x(spec->value.x);
+	printf("%s\n", itoa);
+	return (0);
+}
+
 static char	*str_toupper(char *s)
 {
 	char	*result;
@@ -286,6 +300,8 @@ char	*get_result(t_spec *spec)
 		return (get_u_result(spec));
 	if (spec->type == 'X')
 		return (str_toupper(get_u_result(spec)));
+	if (spec->type == 'p')
+		return (get_p_result(spec));
 	return (0);
 }
 
