@@ -6,63 +6,11 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/28 16:01:24 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/29 15:48:06 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-char	*get_c_result(t_spec *spec)
-{
-		char	*result;
-		size_t	size;
-		int		i;
-
-		size = spec->width ? spec->width : 1;
-		result = malloc(sizeof(*result) * (size + 1));
-		if (!result)
-			return (0);
-		ft_memset(result, ' ', size);
-		if (spec->flags.left)
-			i = 0;
-		else
-			i = size - 1;
-		result[i] = spec->value.c;
-		result[size] = '\0';
-		return (result);
-}
-
-char	*get_s_result(t_spec *spec)
-{
-	char	*result;
-	int		size;
-	int		i;
-
-	size = ft_strlen(spec->value.s);
-	size = spec->precision >= 0 && size > spec->precision ? spec->precision : size;
-	size = spec->width && spec->width > size ? spec->width : size; 
-	result = malloc(sizeof(*result) * (size + 1));
-	if (!result)
-		return (0);
-	ft_memset(result, ' ', size);
-	if (spec->flags.left)
-		i = 0;
-	else
-	{
-		if (size < (int) ft_strlen(spec->value.s))
-			i = 0;
-		else
-			i = size - ft_strlen(spec->value.s);
-	}
-	while (*spec->value.s && i < size)
-	{
-		result[i] = *spec->value.s;
-		i++;
-		(spec->value.s)++;
-	}
-	result[size] = '\0';
-	return (result);
-}
 
 void	fill_d_width(char *result, int size, t_spec *spec)
 {
@@ -265,8 +213,12 @@ char	*get_p_result(t_spec *spec)
 	//size_t	u;
 	char	*itoa;
 	//char	*ptr;
+	//void	*p2;
+	//unsigned long p;
 
-	itoa = ft_itoa_x(spec->value.x);
+	//p = spec->value.p;
+	//printf("%lu\n", p);
+	itoa = ft_itoa_x(spec->value.c);
 	printf("%s\n", itoa);
 	return (0);
 }

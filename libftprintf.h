@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/28 16:36:57 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/29 15:47:40 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ typedef struct		s_spec {
 	int				precision;
 	char			type;
 	union {
-		size_t		p;
-		void		*p2;
+		void		*p;
 		char		*s;
 		unsigned int u;
 		unsigned int x;
@@ -39,5 +38,7 @@ typedef struct		s_spec {
 }					t_spec;
 
 t_spec				*parse(const char **s, va_list *ap);
+char				*get_c_result(t_spec *spec);
+char				*get_s_result(t_spec *spec);
 
 #endif

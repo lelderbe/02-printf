@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/28 15:57:14 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/29 14:08:52 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ t_spec	*parse(const char **s, va_list *ap)
 		result->type = 'p';
 		//result->value.p = va_arg(*ap, unsigned long);
 		//result->value.p = va_arg(*ap, size_t);
-		result->value.p2 = va_arg(*ap, void*);
+		result->value.p = va_arg(*ap, void*);
 	}
 	else if (*ptr == '%')
 	{
