@@ -14,9 +14,8 @@
 
 static void	fill_width(char *result, int size, t_spec *spec)
 {
+	(void)spec;
 	ft_memset(result, ' ', size);
-	if (spec->flags.zero && spec->precision < 0)
-		ft_memset(result, '0', size);
 }
 
 static void	fill_precision(char *result, int size, t_spec *spec)

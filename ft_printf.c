@@ -205,22 +205,70 @@ char	*get_u_result(t_spec *spec)
 	return (result);
 }
 
+
+void	fill_p_width(char *result, int size, t_spec *spec)
+{
+	ft_memset(result, ' ', size);
+	if (spec->flags.zero && spec->precision < 0)
+		ft_memset(result, ' ', size);
+}
+
+void	fill_p_precision(char *result, int size, t_spec *spec)
+{
+	if (spec->precision < 0)
+		return ;
+	if (spec->flags.left)
+		ft_memset(result, ' ', spec->precision);
+	else
+		ft_memset(result + (size - spec->precision), ' ', spec->precision);
+}
+
 char	*get_p_result(t_spec *spec)
 {
-	//char	*result;
-	//int		size;
-	//int		i;
+	char	*result;
+	int		size;
+	int		i;
 	//size_t	u;
 	char	*itoa;
-	//char	*ptr;
+	char	*ptr;
 	//void	*p2;
 	//unsigned long p;
 
 	//p = spec->value.p;
 	//printf("%lu\n", p);
 	itoa = ft_itoa_x(spec->value.c);
-	printf("%s\n", itoa);
-	return (0);
+	ptr = itoa;
+	itoa = ft_strjoin("0x", itoa);
+	free(ptr);
+	ptr = itoa;
+	//printf("%s\n", itoa);
+	size = ft_strlen(itoa);
+	size = spec->precision > size ? spec->precision : size;
+	size = spec->width > size ? spec->width : size;
+	//printf("size: %d\n", size);
+	result = malloc(sizeof(*result) * (size + 1));
+	if (!result)
+		return (0);
+	fill_p_width(result, size, spec);
+	fill_p_precision(result, size, spec);
+	//printf("%s\n", itoa);
+
+	i = size - ft_strlen(itoa);
+	if (spec->flags.left)
+	{
+		i = 0;
+		if (spec->precision > (int) ft_strlen(itoa))
+			i = spec->precision - ft_strlen(itoa);
+	}
+	while (*itoa)
+	{
+		result[i] = *itoa;
+		i++;
+		itoa++;
+	}
+	result[size] = '\0';
+	free(ptr);
+	return (result);
 }
 
 static char	*str_toupper(char *s)
