@@ -6,12 +6,14 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/29 15:47:40 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/30 11:50:44 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
+
+//# define DEBUG
 
 # include "libft/libft.h"
 # include <stdarg.h>
@@ -34,10 +36,10 @@ typedef struct		s_spec {
 		int			d;
 		int			i;
 	}				value;
-	char			*txt;
+	const char		*ptr;
 }					t_spec;
 
-t_spec				*parse(const char **s, va_list *ap);
+t_spec				*parse(const char *s, va_list *ap);
 char				*get_c_result(t_spec *spec);
 char				*get_s_result(t_spec *spec);
 

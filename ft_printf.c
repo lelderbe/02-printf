@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/29 15:48:06 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/30 11:30:18 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,7 +324,7 @@ int		ft_printf(const char *format, ...)
 			continue ;
 		}
 		format++;
-		spec = parse(&format, &ap);
+		spec = parse(format, &ap);
 		if (!spec)
 		{
 			ft_putchar_fd('%', 1);
@@ -335,6 +335,7 @@ int		ft_printf(const char *format, ...)
 			next = get_result(spec);
 			count = count + ft_strlen(next);
 			ft_putstr_fd(next, 1);
+			format = spec->ptr;
 			free(next);
 			free(spec);
 		}
