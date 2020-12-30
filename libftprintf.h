@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/30 12:23:40 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/30 15:28:49 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ typedef struct		s_spec {
 t_spec				*parse(const char *s, va_list *ap);
 char				*get_c_result(t_spec *spec);
 char				*get_s_result(t_spec *spec);
+char				*get_p_result(t_spec *spec);
+char				*ft_itoa_u(size_t n);
+char				*ft_itoa_x(size_t n);
 
 #endif

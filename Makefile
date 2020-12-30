@@ -6,11 +6,11 @@
 #    By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/14 15:22:49 by lelderbe          #+#    #+#              #
-#    Updated: 2020/12/29 15:48:21 by lelderbe         ###   ########.fr        #
+#    Updated: 2020/12/30 15:26:00 by lelderbe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_printf.c parser.c printf_c.c printf_s.c
+SRCS		= ft_printf.c printf_utils.c parser.c printf_c.c printf_s.c printf_p.c
 
 #BONUS_SRCS	= 
 
