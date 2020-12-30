@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/30 11:58:35 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/30 12:18:55 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	get_value(va_list *ap, t_spec *e)
 	else if (*e->ptr == 'p')
 		e->value.p = va_arg(*ap, void*);
 	else if (*e->ptr == '%')
-		e->type = '%';
+		e->value.c = '%';//va_arg(*ap, int);
 	else
 		return (0);
 	e->ptr++;

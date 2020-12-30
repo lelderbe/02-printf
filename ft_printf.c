@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/30 11:30:18 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/30 12:13:17 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,24 +284,22 @@ static char	*str_toupper(char *s)
 	return (result);
 }
 
-char	*get_result(t_spec *spec)
+char	*get_result(t_spec *e)
 {
-	if (spec->type == '%')
-		return (ft_strdup("%"));
-	if (spec->type == 'c')
-		return (get_c_result(spec));
-	if (spec->type == 's')
-		return (get_s_result(spec));
-	if (spec->type == 'd')
-		return (get_d_result(spec));
-	if (spec->type == 'u')
-		return (get_u_result(spec));
-	if (spec->type == 'x')
-		return (get_u_result(spec));
-	if (spec->type == 'X')
-		return (str_toupper(get_u_result(spec)));
-	if (spec->type == 'p')
-		return (get_p_result(spec));
+	if (e->type == 'c' || e->type == '%')
+		return (get_c_result(e));
+	if (e->type == 's')
+		return (get_s_result(e));
+	if (e->type == 'd')
+		return (get_d_result(e));
+	if (e->type == 'u')
+		return (get_u_result(e));
+	if (e->type == 'x')
+		return (get_u_result(e));
+	if (e->type == 'X')
+		return (str_toupper(get_u_result(e)));
+	if (e->type == 'p')
+		return (get_p_result(e));
 	return (0);
 }
 
