@@ -6,48 +6,85 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:46:13 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/29 15:58:10 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/30 15:13:35 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void	fill_width(char *result, int size, t_spec *spec)
+static void	fill_width(char *result, int size, t_spec *e)
 {
-	(void)spec;
 	ft_memset(result, ' ', size);
+	if (e->flags.zero && e->precision < 0)
+		ft_memset(result, '0', size);
 }
 
-static void	fill_precision(char *result, int size, t_spec *spec)
+static void	fill_precision(char *result, int size, t_spec *e)
 {
 	(void)result;
 	(void)size;
-	(void)spec;
+	(void)e;
 }
 
-char	*get_s_result(t_spec *spec)
+static int	get_size(t_spec *e)
+{
+	int		size;
+
+	size = ft_strlen(e->value.s);
+	size = e->precision >= 0 && size > e->precision ? e->precision : size;
+	size = e->width && e->width > size ? e->width : size;
+	return (size);
+}
+
+static void	fill_data(char *result, int size, t_spec *e)
+{
+	int		pos;
+	int		i;
+	int		max;
+
+	if (e->precision >= 0)
+	{
+		max = e->precision > (int)ft_strlen(e->value.s) ?
+			ft_strlen(e->value.s) : e->precision;
+		i = 0;
+		pos = e->flags.left ? 0 : size - max;
+	}
+	else
+	{
+		max = size;
+		i = 0;
+		pos = e->flags.left ? 0 : size - ft_strlen(e->value.s);
+	}
+	while (e->value.s[i] && i < max)
+	{
+		result[pos + i] = e->value.s[i];
+		i++;
+	}
+}
+
+char		*get_s_result(t_spec *e)
 {
 	char	*result;
 	int		size;
-	int		i;
+	char	*np;
 
-	size = ft_strlen(spec->value.s);
-	size = spec->precision >= 0 && size > spec->precision ? spec->precision : size;
-	size = spec->width && spec->width > size ? spec->width : size;
+	np = 0;
+	if (!e->value.s)
+	{
+		np = ft_strdup("(null)");
+		e->value.s = np;
+	}
+	size = get_size(e);
 	result = malloc(sizeof(*result) * (size + 1));
 	if (!result)
 		return (0);
-	fill_width(result, size, spec);
-	fill_precision(result, size, spec);
-	if (spec->flags.left)
-		i = 0;
-	else
-		i = (size < (int) ft_strlen(spec->value.s)) ?  0 : size - ft_strlen(spec->value.s);
-	while (*spec->value.s && i < size)
+	fill_width(result, size, e);
+	fill_precision(result, size, e);
+	fill_data(result, size, e);
+	if (np)
 	{
-		result[i] = *spec->value.s;
-		i++;
-		(spec->value.s)++;
+		free(np);
+		e->value.s = 0;
 	}
 	result[size] = '\0';
 	return (result);
