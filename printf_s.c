@@ -45,7 +45,7 @@ static void	fill_data(char *result, int size, t_spec *e)
 	if (e->precision >= 0)
 	{
 		max = e->precision > (int)ft_strlen(e->value.s) ?
-			ft_strlen(e->value.s) : e->precision;
+			(int)ft_strlen(e->value.s) : e->precision;
 		i = 0;
 		pos = e->flags.left ? 0 : size - max;
 	}
