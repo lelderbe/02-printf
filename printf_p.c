@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:22:44 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/30 15:41:26 by lelderbe         ###   ########.fr       */
+/*   Updated: 2020/12/31 14:11:20 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_size(t_spec *e)
 	char	*itoa;
 
 	itoa = ft_itoa_x(e->value.c);
-	size = ft_strlen(itoa);
+	size = ft_strlen(itoa) + 2;
 	size = e->precision > size ? e->precision : size;
 	size = e->width > size ? e->width : size;
 	free(itoa);
@@ -29,7 +29,15 @@ static void	fill_width(char *result, int size, t_spec *e)
 {
 	ft_memset(result, ' ', size);
 	if (e->flags.zero && e->precision < 0)
+	{
 		ft_memset(result, '0', size);
+		ft_memset(result + 1, 'x', 1);
+	}
+	if (e->flags.left)
+	{
+		ft_memset(result, '0', 1);
+		ft_memset(result + 1, 'x', 1);
+	}
 }
 
 static void	fill_precision(char *result, int size, t_spec *e)
@@ -55,7 +63,7 @@ static void	fill_data(char *result, int size, t_spec *e)
 	i = size - ft_strlen(itoa);
 	if (e->flags.left)
 	{
-		i = 0;
+		i = 0 + 2;
 		if (e->precision > (int) ft_strlen(itoa))
 			i = e->precision - ft_strlen(itoa);
 	}
