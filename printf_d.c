@@ -81,6 +81,7 @@ static void	fill_data(char *result, int size, t_spec *e)
 		i++;
 		itoa++;
 	}
+	free(ptr);
 }
 
 char	*get_d_result(t_spec *e)

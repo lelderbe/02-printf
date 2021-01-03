@@ -38,6 +38,7 @@ static void	get_width(va_list *ap, t_spec *e)
 		if (i < 0)
 		{
 			e->flags.left = 1;
+			e->flags.zero = 0;
 			i = -i;
 		}
 		e->width = i;
