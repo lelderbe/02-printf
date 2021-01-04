@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:22:44 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/31 14:11:20 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:49:47 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 static int	get_size(t_spec *e)
 {
 	int		size;
-	char	*itoa;
 
-	itoa = ft_itoa_x(e->value.c);
-	size = ft_strlen(itoa) + 2;
+	size = ft_strlen(e->itoa) + 2;
 	size = e->precision > size ? e->precision : size;
 	size = e->width > size ? e->width : size;
-	free(itoa);
 	return (size);
 }
 
@@ -52,60 +49,33 @@ static void	fill_precision(char *result, int size, t_spec *e)
 
 static void	fill_data(char *result, int size, t_spec *e)
 {
-	//int		pos;
 	int		i;
-	//int		max;
-	char	*itoa;
 	char	*ptr;
 
-	itoa = ft_itoa_x(e->value.c);
-	ptr = itoa;
-	i = size - ft_strlen(itoa);
+	ptr = e->itoa;
+	i = size - ft_strlen(ptr);
 	if (e->flags.left)
 	{
 		i = 0 + 2;
-		if (e->precision > (int) ft_strlen(itoa))
-			i = e->precision - ft_strlen(itoa);
+		if (e->precision > (int)ft_strlen(ptr))
+			i = e->precision - ft_strlen(ptr);
 	}
-	while (*itoa)
+	result[i - 2] = '0';
+	result[i - 1] = 'x';
+	while (*ptr)
 	{
-		result[i] = *itoa;
+		result[i] = *ptr;
 		i++;
-		itoa++;
+		ptr++;
 	}
-	free(ptr);
-	/*
-	if (e->precision >= 0)
-	{
-		max = e->precision > (int)ft_strlen(e->value.s) ?
-			ft_strlen(e->value.s) : e->precision;
-		i = 0;
-		pos = e->flags.left ? 0 : size - max;
-	}
-	else
-	{
-		max = size;
-		i = 0;
-		pos = e->flags.left ? 0 : size - ft_strlen(e->value.s);
-	}
-	while (e->value.s[i] && i < max)
-	{
-		result[pos + i] = e->value.s[i];
-		i++;
-	}
-	*/
 }
 
-char	*get_p_result(t_spec *e)
+char		*get_p_result(t_spec *e)
 {
 	char	*result;
 	int		size;
 
-	//itoa = ft_strjoin("0x", itoa);
-	//free(ptr);
-	//ptr = itoa;
-	//printf("%s\n", itoa);
-	//printf("size: %d\n", size);
+	e->itoa = ft_itoa_x(e->value.c);
 	size = get_size(e);
 	result = malloc(sizeof(*result) * (size + 1));
 	if (!result)
@@ -114,5 +84,7 @@ char	*get_p_result(t_spec *e)
 	fill_precision(result, size, e);
 	fill_data(result, size, e);
 	result[size] = '\0';
+	free(e->itoa);
+	e->itoa = 0;
 	return (result);
 }

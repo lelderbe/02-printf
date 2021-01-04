@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:23:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/31 14:09:14 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:48:09 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,23 @@
 static int	get_size(t_spec *e)
 {
 	int		size;
-	char	*itoa;
 
-	itoa = ft_itoa_u(e->value.u);
-	size = ft_strlen(itoa);
+	size = ft_strlen(e->itoa);
 	if (e->precision == 0 && e->value.u == 0)
-		size =  0;
+		size = 0;
 	size = e->precision > size ? e->precision : size;
 	size = e->width > size ? e->width : size;
-	free(itoa);
 	return (size);
 }
 
-void	fill_width(char *result, int size, t_spec *e)
+void		fill_width(char *result, int size, t_spec *e)
 {
 	ft_memset(result, ' ', size);
 	if (e->flags.zero && e->precision < 0)
 		ft_memset(result, '0', size);
 }
 
-void	fill_precision(char *result, int size, t_spec *e)
+void		fill_precision(char *result, int size, t_spec *e)
 {
 	if (e->precision < 0)
 		return ;
@@ -46,47 +43,33 @@ void	fill_precision(char *result, int size, t_spec *e)
 
 static void	fill_data(char *result, int size, t_spec *e)
 {
-	//int		pos;
-	int		i;
-	//int		max;
-	char	*itoa;
+	int		pos;
 	char	*ptr;
 
-	itoa = ft_itoa_u(e->value.u);
-	ptr = itoa;
-	i = size - ft_strlen(itoa);
+	ptr = e->itoa;
+	pos = size - ft_strlen(e->itoa);
 	if (e->flags.left)
 	{
-		i = 0;
-		if (e->precision > (int) ft_strlen(itoa))
-			i = e->precision - ft_strlen(itoa);
+		pos = 0;
+		if (e->precision > (int)ft_strlen(e->itoa))
+			pos = e->precision - ft_strlen(e->itoa);
 	}
-	while (*itoa)
+	while (*ptr)
 	{
 		if (e->precision == 0 && e->value.u == 0)
 			break ;
-		result[i] = *itoa;
-		i++;
-		itoa++;
+		result[pos] = *ptr;
+		pos++;
+		ptr++;
 	}
-	free(ptr);
 }
 
-char	*get_u_result(t_spec *e)
+char		*get_u_result(t_spec *e)
 {
 	char	*result;
 	int		size;
-	//size_t	u;
 
-	//itoa = 0;
-	//if (spec->type == 'u')
-		/*
-	else if (spec->type == 'x')
-		itoa = ft_itoa_x(e->value.x);
-	else if (spec->type == 'X')
-		itoa = ft_itoa_x(e->value.x);
-		*/
-	//printf("%s\n", itoa);
+	e->itoa = ft_itoa_u(e->value.u);
 	size = get_size(e);
 	result = malloc(sizeof(*result) * (size + 1));
 	if (!result)
@@ -95,5 +78,7 @@ char	*get_u_result(t_spec *e)
 	fill_precision(result, size, e);
 	fill_data(result, size, e);
 	result[size] = '\0';
+	free(e->itoa);
+	e->itoa = 0;
 	return (result);
 }

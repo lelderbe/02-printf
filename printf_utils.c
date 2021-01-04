@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:24:54 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/30 15:42:10 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:51:22 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static size_t	get_length_x(size_t n)
 	return (result);
 }
 
-char		*ft_itoa_u(size_t n)
+char			*ft_itoa_u(size_t n)
 {
 	char	*result;
 	size_t	length;
@@ -40,7 +40,7 @@ char		*ft_itoa_u(size_t n)
 	int		j;
 
 	length = get_length(n);
-	result = (char *)malloc(sizeof(*result) * (length + 1));
+	result = malloc(sizeof(*result) * (length + 1));
 	if (!result)
 		return (0);
 	j = 0;
@@ -55,7 +55,7 @@ char		*ft_itoa_u(size_t n)
 	return (result);
 }
 
-char		*ft_itoa_x(size_t n)
+char			*ft_itoa_x(size_t n)
 {
 	char	*result;
 	size_t	length;
@@ -64,7 +64,7 @@ char		*ft_itoa_x(size_t n)
 	char	hex[] = "0123456789abcdef";
 
 	length = get_length_x(n);
-	result = (char *)malloc(sizeof(*result) * (length + 1));
+	result = malloc(sizeof(*result) * (length + 1));
 	if (!result)
 		return (0);
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/31 13:09:13 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:37:06 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char	*get_result(t_spec *e)
 	if (e->type == 'u')
 		return (get_u_result(e));
 	if (e->type == 'x')
-		return (get_u_result(e));
+		return (get_x_result(e));
 	if (e->type == 'X')
-		return (str_toupper(get_u_result(e)));
+		return (str_toupper(get_x_result(e)));
 	if (e->type == 'p')
 		return (get_p_result(e));
 	return (0);
