@@ -14,15 +14,25 @@
 
 static void	get_flags(t_spec *e)
 {
-	while (*e->ptr == '0' || *e->ptr == '-')
+	while (*e->ptr == '0' || *e->ptr == '-' ||
+			 *e->ptr == '+' || *e->ptr == ' ' || *e->ptr == '#')
 	{
-		if (*e->ptr == '0')// && !(result->flags.left))
+		if (*e->ptr == '0')
 			e->flags.zero = !e->flags.left;
-			//e->flags.zero = 1;
+		if (*e->ptr == ' ')
+			e->flags.space = !e->flags.sign;
+		if (*e->ptr == '#')
+			e->flags.hash = 1;
 		if (*e->ptr == '-')
 		{
 			e->flags.left = 1;
 			e->flags.zero = 0;
+		}
+		if (*e->ptr == '+')
+		{
+			e->flags.sign = 1;
+			//e->flags.hash = 0;
+			e->flags.space = 0;
 		}
 		e->ptr++;
 	}

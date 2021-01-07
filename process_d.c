@@ -25,7 +25,7 @@ static int	get_size(t_spec *e)
 	size = e->width > size ? e->width : size;
 	return (size);
 }
-
+/*
 static void	fill_width(t_spec *e)
 {
 	if (e->flags.zero)
@@ -40,7 +40,8 @@ static void	fill_width(t_spec *e)
 	else
 		ft_memset(e->result, ' ', e->size);
 }
-
+*/
+/*
 static void	fill_precision(t_spec *e)
 {
 	int		i;
@@ -50,7 +51,7 @@ static void	fill_precision(t_spec *e)
 	i = 0;
 	if (!e->flags.left)
 	{
-		i = e->size - e->precision;// - e->sign;
+		i = e->size - e->precision;
 		if (e->sign)
 			i = i - ft_strlen(e->prefix);
 	}
@@ -62,7 +63,8 @@ static void	fill_precision(t_spec *e)
 	}
 	ft_memset(e->result + i, '0', e->precision);
 }
-
+*/
+/*
 static void	fill_data(t_spec *e)
 {
 	int		i;
@@ -77,7 +79,7 @@ static void	fill_data(t_spec *e)
 	}
 	else
 	{
-		i = e->size - e->dsize;// - e->sign;
+		i = e->size - e->dsize;
 		if (e->sign)
 			i = i - ft_strlen(e->prefix);
 	}
@@ -89,30 +91,31 @@ static void	fill_data(t_spec *e)
 	}
 	ft_memcpy(e->result + i, e->itoa, e->dsize);
 }
-
+*/
 int			get_d_result(t_spec *e)
 {
 	e->itoa = ft_itoa_mod(e->value.d);
 	e->size = get_size(e);
+	e->prefix = ft_strdup("+");
+	e->sign = e->flags.sign || e->flags.space;
+	if (e->flags.space)
+		*e->prefix = ' ';
 	if (e->value.d < 0)
 	{
-		e->prefix = ft_strdup("-");
+		e->flags.sign = 1;
+		e->flags.space = 0;
+		//e->prefix = ft_strdup("-");
+		*e->prefix = '-';
 		e->sign = 1;
 	}
-	else
-		e->prefix = ft_strdup("");
 	e->dsize = ft_strlen(e->itoa);
 	if (e->value.d == 0 && e->precision == 0)
 		e->dsize = 0;
 	e->result = malloc(sizeof(*e->result) * e->size);
 	if (!e->result)
 		return (0);
-	fill_width(e);
-	fill_precision(e);
-	fill_data(e);
-	free(e->itoa);
-	e->itoa = 0;
-	free(e->prefix);
-	e->prefix = 0;
+	fill_width2(e);
+	fill_precision2(e);
+	fill_data2(e);
 	return (e->size);
 }

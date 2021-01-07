@@ -33,6 +33,9 @@ typedef struct		s_spec {
 	struct {
 		size_t	left : 1;
 		size_t	zero : 1;
+		size_t	sign : 1;
+		size_t	space : 1;
+		size_t	hash : 1;
 	}				flags;
 	int				width;
 	int				precision;
@@ -68,5 +71,9 @@ int					get_s_result(t_spec *e);
 char				*ft_itoa_mod(int n);
 char				*ft_itoa_u(size_t n);
 char				*ft_itoa_x(size_t n);
+void				fill_width2(t_spec *e);
+void				fill_precision2(t_spec *e);
+void				fill_data2(t_spec *e);
+
 
 #endif

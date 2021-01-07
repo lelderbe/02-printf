@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_printf.c printf_utils.c parser.c process_s.c process_p.c process_u.c process_c.c process_d.c process_x.c
+SRCS		= ft_printf.c printf_utils.c parser.c process_s.c process_p.c process_u.c process_c.c process_d.c process_x.c process_common.c
 
 #BONUS_SRCS	= 
 

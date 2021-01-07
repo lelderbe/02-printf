@@ -12,7 +12,6 @@
 
 #include "libftprintf.h"
 
-
 static int	str_toupper(char *s)
 {
 	int		count;
@@ -49,12 +48,20 @@ int			get_result(t_spec *e)
 	return (0);
 }
 
-int		ft_printf(const char *format, ...)
+static void	freespec(t_spec *e)
+{
+	(void)e;
+	//free(e->prefix);
+	//free(e->itoa);
+	//free(e);
+}
+
+int			ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_spec		*spec;
 	size_t		count;
-	//char		*next;
+	int			result;
 
 	count = 0;
 	va_start(ap, format);
@@ -76,22 +83,18 @@ int		ft_printf(const char *format, ...)
 		}
 		else
 		{
-			count = count + get_result(spec);
+			result = get_result(spec);
+			if (result == -1)
+			{
+				freespec(spec);
+				va_end(ap);
+				return (-1);
+			}
+			count = count + result;
 			write(1, spec->result, spec->size);
-			//next = get_result(spec);
-			//(void)next;
 			format = spec->ptr;
-			free(spec);
-			/*
-			next = get_result(spec);
-			count = count + ft_strlen(next);
-			ft_putstr_fd(next, 1);
-			format = spec->ptr;
-			free(next);
-			free(spec);
-			*/
+			freespec(spec);
 		}
-		//format++;
 	}
 	va_end(ap);
 	return (count);

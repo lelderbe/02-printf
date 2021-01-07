@@ -23,7 +23,7 @@ static int	get_size(t_spec *e)
 	size = e->width > size ? e->width : size;
 	return (size);
 }
-
+/*
 static void	fill_width(t_spec *e)
 {
 	if (e->flags.zero)
@@ -38,7 +38,8 @@ static void	fill_width(t_spec *e)
 	else
 		ft_memset(e->result, ' ', e->size);
 }
-
+*/
+/*
 static void	fill_precision(t_spec *e)
 {
 	int		i;
@@ -48,20 +49,20 @@ static void	fill_precision(t_spec *e)
 	i = 0;
 	if (!e->flags.left)
 	{
-		i = e->size - e->precision;// - e->sign;
+		i = e->size - e->precision;
 		if (e->sign)
 			i = i - ft_strlen(e->prefix);
 	}
 	if (e->sign)
 	{
 		ft_memcpy(e->result + i, e->prefix, ft_strlen(e->prefix));
-		//e->result[i] = e->prefix[0];
 		e->sign = 0;
 		i = i + ft_strlen(e->prefix);
 	}
 	ft_memset(e->result + i, '0', e->precision);
 }
-
+*/
+/*
 static void	fill_data(t_spec *e)
 {
 	int		i;
@@ -88,7 +89,7 @@ static void	fill_data(t_spec *e)
 	}
 	ft_memcpy(e->result + i, e->itoa, e->dsize);
 }
-
+*/
 int			get_u_result(t_spec *e)
 {
 	e->itoa = ft_itoa_u(e->value.u);
@@ -99,10 +100,8 @@ int			get_u_result(t_spec *e)
 	e->result = malloc(sizeof(*e->result) * e->size);
 	if (!e->result)
 		return (0);
-	fill_width(e);
-	fill_precision(e);
-	fill_data(e);
-	free(e->itoa);
-	e->itoa = 0;
+	fill_width2(e);
+	fill_precision2(e);
+	fill_data2(e);
 	return (e->size);
 }
