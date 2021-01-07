@@ -73,6 +73,8 @@ static void	get_precision(va_list *ap, t_spec *e)
 				e->ptr++;
 			}
 		}
+		if (e->precision >= 0 || !e->value.p)
+			e->flags.zero = 0;
 	}
 }
 

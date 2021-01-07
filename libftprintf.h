@@ -13,6 +13,16 @@
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
+# ifdef __linux__
+#  define P_NULL_TEXT	"(nil)"
+#  define S_NULL_TEXT	"(null)"
+# endif
+
+# ifdef __APPLE__
+#  define P_NULL_TEXT	"(null)"
+#  define S_NULL_TEXT	"(null)"
+# endif
+
 //# define DEBUG
 
 # include "libft/libft.h"
@@ -38,16 +48,24 @@ typedef struct		s_spec {
 		int			i;
 	}				value;
 	const char		*ptr;
+	char			*result;
+	int				size;
+	char			*prefix;
 	char			*itoa;
+	int				dsize;
+	int				psize;
+	int				count;
+	int				sign;
 }					t_spec;
 
 t_spec				*parse(const char *s, va_list *ap);
-char				*get_c_result(t_spec *e);
-char				*get_s_result(t_spec *e);
-char				*get_p_result(t_spec *e);
-char				*get_u_result(t_spec *e);
-char				*get_d_result(t_spec *e);
-char				*get_x_result(t_spec *e);
+int					get_c_result(t_spec *e);
+int					get_d_result(t_spec *e);
+int					get_x_result(t_spec *e);
+int					get_p_result(t_spec *e);
+int					get_u_result(t_spec *e);
+int					get_s_result(t_spec *e);
+char				*ft_itoa_mod(int n);
 char				*ft_itoa_u(size_t n);
 char				*ft_itoa_x(size_t n);
 

@@ -12,6 +12,16 @@
 
 #include "libftprintf.h"
 
+static size_t	get_length_int(int n)
+{
+	size_t	result;
+
+	result = 1;
+	while ((n = n / 10))
+		result++;
+	return (result);
+}
+
 static size_t	get_length(size_t n)
 {
 	size_t	result;
@@ -29,6 +39,29 @@ static size_t	get_length_x(size_t n)
 	result = 1;
 	while ((n = n / 16))
 		result++;
+	return (result);
+}
+
+char			*ft_itoa_mod(int n)
+{
+	char	*result;
+	size_t	length;
+	int		i;
+	int		j;
+
+	length = get_length_int(n);
+	result = malloc(sizeof(*result) * (length + 1));
+	if (!result)
+		return (0);
+	j = 0;
+	i = length - 1;
+	while (i >= j)
+	{
+		result[i] = n < 0 ? '0' - (n % 10) : '0' + (n % 10);
+		n = n / 10;
+		i--;
+	}
+	result[length] = 0;
 	return (result);
 }
 

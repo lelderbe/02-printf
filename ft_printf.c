@@ -12,35 +12,40 @@
 
 #include "libftprintf.h"
 
-static char	*str_toupper(char *s)
-{
-	char	*result;
 
-	result = s;
+static int	str_toupper(char *s)
+{
+	int		count;
+
+	count = 0;
 	while(*s)
 	{
 		*s = ft_toupper(*s);
 		s++;
+		count++;
 	}
-	return (result);
+	return (count);
 }
 
-char	*get_result(t_spec *e)
+int			get_result(t_spec *e)
 {
 	if (e->type == 'c' || e->type == '%')
 		return (get_c_result(e));
-	if (e->type == 's')
-		return (get_s_result(e));
-	if (e->type == 'd')
+	if (e->type == 'p')
+		return (get_p_result(e));
+	if (e->type == 'd' || e->type == 'i')
 		return (get_d_result(e));
 	if (e->type == 'u')
 		return (get_u_result(e));
 	if (e->type == 'x')
 		return (get_x_result(e));
 	if (e->type == 'X')
-		return (str_toupper(get_x_result(e)));
-	if (e->type == 'p')
-		return (get_p_result(e));
+	{
+		get_x_result(e);
+		return (str_toupper(e->result));
+	}
+	if (e->type == 's')
+		return (get_s_result(e));
 	return (0);
 }
 
@@ -49,7 +54,7 @@ int		ft_printf(const char *format, ...)
 	va_list		ap;
 	t_spec		*spec;
 	size_t		count;
-	char		*next;
+	//char		*next;
 
 	count = 0;
 	va_start(ap, format);
@@ -71,14 +76,20 @@ int		ft_printf(const char *format, ...)
 		}
 		else
 		{
+			count = count + get_result(spec);
+			write(1, spec->result, spec->size);
+			//next = get_result(spec);
+			//(void)next;
+			format = spec->ptr;
+			free(spec);
+			/*
 			next = get_result(spec);
 			count = count + ft_strlen(next);
 			ft_putstr_fd(next, 1);
 			format = spec->ptr;
 			free(next);
-			//if (ft_strncmp(spec->value.s, "(null)", 6))
-			//	free(spec->value.s);
 			free(spec);
+			*/
 		}
 		//format++;
 	}
