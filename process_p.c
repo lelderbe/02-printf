@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:22:44 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/04 14:49:47 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/08 15:11:46 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static int	get_size(t_spec *e)
 {
 	int		size;
 
-	size = ft_strlen(e->itoa) + ft_strlen(e->prefix);
+	size = ft_strlen(e->itoa);// + ft_strlen(e->prefix);
+	if (e->precision == 0 && e->value.p == 0)
+		size = 0;
 	size = e->precision > size ? e->precision : size;
+	size = size + ft_strlen(e->prefix);
 	size = e->width > size ? e->width : size;
 	return (size);
 }
@@ -88,6 +91,7 @@ static void	fill_data(t_spec *e)
 */
 int			get_p_result(t_spec *e)
 {
+	/*
 	if (!e->value.p)
 	{
 		e->itoa = ft_strdup(P_NULL_TEXT);
@@ -97,6 +101,7 @@ int			get_p_result(t_spec *e)
 		e->precision = -1;
 	}
 	else
+	*/
 	{
 		e->itoa = ft_itoa_x(e->value.padding);
 		e->prefix = ft_strdup("0x");
@@ -104,6 +109,10 @@ int			get_p_result(t_spec *e)
 	}
 	e->size = get_size(e);
 	e->dsize = ft_strlen(e->itoa);
+	//printf("size: %d\n", e->size);
+	//printf("dsize: %d\n", e->dsize);
+	if (e->value.p == 0 && e->precision == 0)
+		e->dsize = 0;
 	e->result = malloc(sizeof(*e->result) * e->size);
 	if (!e->result)
 		return (0);

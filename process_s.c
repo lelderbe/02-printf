@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 13:02:18 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/04 13:59:58 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/08 15:20:43 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			get_s_result(t_spec *e)
 	if (!e->value.s)
 		e->itoa = ft_strdup(S_NULL_TEXT);
 	else
-		e->itoa = e->value.s;
+		e->itoa = ft_strdup(e->value.s);
 	e->size = get_size(e);
 	e->sign = 0;
 	//e->prefix = ft_strdup("");

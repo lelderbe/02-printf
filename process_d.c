@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 13:02:18 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/04 13:59:58 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/08 14:51:32 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ static int	get_size(t_spec *e)
 
 	size = ft_strlen(e->itoa);
 	if (e->precision == 0 && e->value.d == 0)
-		size =  0;
+		size = 0;
 	size = e->precision > size ? e->precision : size;
-	if (e->value.d < 0)
+	if (e->sign)
 		size++;
+	//if (e->value.d < 0)
+	//	size++;
 	size = e->width > size ? e->width : size;
 	return (size);
 }
@@ -95,11 +97,13 @@ static void	fill_data(t_spec *e)
 int			get_d_result(t_spec *e)
 {
 	e->itoa = ft_itoa_mod(e->value.d);
-	e->size = get_size(e);
 	e->prefix = ft_strdup("+");
 	e->sign = e->flags.sign || e->flags.space;
 	if (e->flags.space)
+	{
 		*e->prefix = ' ';
+		e->flags.sign = 1;
+	}
 	if (e->value.d < 0)
 	{
 		e->flags.sign = 1;
@@ -108,6 +112,7 @@ int			get_d_result(t_spec *e)
 		*e->prefix = '-';
 		e->sign = 1;
 	}
+	e->size = get_size(e);
 	e->dsize = ft_strlen(e->itoa);
 	if (e->value.d == 0 && e->precision == 0)
 		e->dsize = 0;

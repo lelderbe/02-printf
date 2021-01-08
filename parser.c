@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2020/12/30 12:18:55 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/08 15:52:22 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ static void	get_precision(va_list *ap, t_spec *e)
 				e->ptr++;
 			}
 		}
-		if (e->precision >= 0 || !e->value.p)
-			e->flags.zero = 0;
+		
+		//if (e->precision >= 0 /*|| !e->value.p*/)
+		//	e->flags.zero = 0;
+
 	}
 }
 
@@ -112,6 +114,8 @@ static int	get_value(va_list *ap, t_spec *e)
 	else
 		return (0);
 	e->ptr++;
+	if (e->precision >= 0 && e->type != '%'/*|| !e->value.p*/)
+		e->flags.zero = 0;
 	return (1);
 }
 

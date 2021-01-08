@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/04 15:02:15 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/08 15:55:21 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ typedef struct		s_spec {
 	int				sign;
 }					t_spec;
 
+int					ft_printf(const char *format, ...);
 t_spec				*parse(const char *s, va_list *ap);
 int					get_c_result(t_spec *e);
 int					get_d_result(t_spec *e);
 int					get_x_result(t_spec *e);
+int					process_xx(t_spec *e);
 int					get_p_result(t_spec *e);
 int					get_u_result(t_spec *e);
 int					get_s_result(t_spec *e);

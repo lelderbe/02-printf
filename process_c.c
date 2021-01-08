@@ -50,6 +50,8 @@ int			get_c_result(t_spec *e)
 	e->itoa = ft_strdup(" ");
 	*e->itoa = e->value.c;
 	e->precision = -1;
+	//if (e->type == '%')
+	//	e->flags.zero = 1;
 	e->result = malloc(sizeof(*e->result) * e->size);
 	if (!e->result)
 		return (-1);
