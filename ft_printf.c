@@ -28,6 +28,8 @@ static int	get_result(t_spec *e)
 		return (process_xx(e));
 	if (e->type == 's')
 		return (process_s(e));
+	if (e->type == 'n')
+		return (process_n(e));
 	return (-1);
 }
 
@@ -35,18 +37,14 @@ static void	freespec(t_spec *e)
 {
 	free(e->prefix);
 	free(e->itoa);
-	free(e);
 }
 
-static int	process(size_t *count, const char **format, va_list *ap)
+static int	process(t_spec *e, const char **format)
 {
-	t_spec	*e;
-
-	e = parse(*format, ap);
-	if (!e)
+	if (parse(e) == -1)
 	{
 		ft_putchar_fd('%', 1);
-		*count = *count + 1;
+		e->written++;
 	}
 	else
 	{
@@ -56,36 +54,59 @@ static int	process(size_t *count, const char **format, va_list *ap)
 			return (-1);
 		}
 		write(1, e->result, e->size);
-		*count = *count + e->size;
+		e->written = e->written + e->size;
 		*format = e->ptr;
 		freespec(e);
 	}
 	return (1);
 }
 
+static void	init(t_spec *e)
+{
+	e->flags.left = 0;
+	e->flags.zero = 0;
+	e->flags.sign = 0;
+	e->flags.space = 0;
+	e->flags.hash = 0;
+	e->width = 0;
+	e->precision = -1;
+	e->type = 0;
+	e->value.value = 0;
+	e->ptr = 0;
+	e->result = 0;
+	e->size = 0;
+	e->prefix = 0;
+	e->itoa = 0;
+	e->dsize = 0;
+	e->sign = 0;
+}
+
 int			ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	size_t		count;
+	t_spec		e;
 
-	count = 0;
 	va_start(ap, format);
+	e.ap = &ap;
+	e.written = 0;
 	while (*format)
 	{
 		if (*format != '%')
 		{
 			ft_putchar_fd(*format, 1);
-			count++;
+			e.written++;
 			format++;
 			continue ;
 		}
 		format++;
-		if (process(&count, &format, &ap) == -1)
+		init(&e);
+		e.ptr = format;
+		if (process(&e, &format) == -1)
 		{
 			va_end(ap);
 			return (-1);
 		}
 	}
 	va_end(ap);
-	return (count);
+	return (e.written);
 }

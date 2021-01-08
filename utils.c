@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -22,16 +22,16 @@ static size_t	get_length_int(int n)
 	return (result);
 }
 
-static size_t	get_length(size_t n)
+static size_t	get_length_u_base(size_t n, int base)
 {
 	size_t	result;
 
 	result = 1;
-	while ((n = n / 10))
+	while ((n = n / base))
 		result++;
 	return (result);
 }
-
+/*
 static size_t	get_length_x(size_t n)
 {
 	size_t	result;
@@ -41,7 +41,7 @@ static size_t	get_length_x(size_t n)
 		result++;
 	return (result);
 }
-
+*/
 char			*ft_itoa_mod(int n)
 {
 	char	*result;
@@ -72,7 +72,7 @@ char			*ft_itoa_u(size_t n)
 	int		i;
 	int		j;
 
-	length = get_length(n);
+	length = get_length_u_base(n, 10);
 	result = malloc(sizeof(*result) * (length + 1));
 	if (!result)
 		return (0);
@@ -96,7 +96,7 @@ char			*ft_itoa_x(size_t n)
 	int		j;
 	char	hex[] = "0123456789abcdef";
 
-	length = get_length_x(n);
+	length = get_length_u_base(n, 16);
 	result = malloc(sizeof(*result) * (length + 1));
 	if (!result)
 		return (0);

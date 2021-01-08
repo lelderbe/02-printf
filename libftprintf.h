@@ -54,6 +54,7 @@ typedef struct			s_spec {
 		//long long int	lli;
 	}					value;
 	const char			*ptr;
+	va_list				*ap;
 	char				*result;
 	int					size;
 	char				*prefix;
@@ -64,7 +65,7 @@ typedef struct			s_spec {
 }						t_spec;
 
 int						ft_printf(const char *format, ...);
-t_spec					*parse(const char *s, va_list *ap);
+int						parse(t_spec *e);
 int						process_c(t_spec *e);
 int						process_d(t_spec *e);
 int						process_p(t_spec *e);
@@ -72,6 +73,7 @@ int						process_u(t_spec *e);
 int						process_s(t_spec *e);
 int						process_x(t_spec *e);
 int						process_xx(t_spec *e);
+int						process_n(t_spec *e);
 char					*ft_itoa_mod(int n);
 char					*ft_itoa_u(size_t n);
 char					*ft_itoa_x(size_t n);

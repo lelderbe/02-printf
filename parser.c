@@ -38,11 +38,11 @@ static void	get_flags(t_spec *e)
 	}
 }
 
-static void	get_width(va_list *ap, t_spec *e)
+static void	get_width(t_spec *e)
 {
 	if (*e->ptr == '*')
 	{
-		e->width = va_arg(*ap, int);
+		e->width = va_arg(*e->ap, int);
 		if (e->width < 0)
 		{
 			e->flags.left = 1;
@@ -61,7 +61,7 @@ static void	get_width(va_list *ap, t_spec *e)
 	}
 }
 
-static void	get_precision(va_list *ap, t_spec *e)
+static void	get_precision(t_spec *e)
 {
 	if (*e->ptr == '.')
 	{
@@ -69,7 +69,7 @@ static void	get_precision(va_list *ap, t_spec *e)
 		e->precision = 0;
 		if (*e->ptr == '*')
 		{
-			e->precision = va_arg(*ap, int);
+			e->precision = va_arg(*e->ap, int);
 			e->ptr++;
 		}
 		else
@@ -83,29 +83,31 @@ static void	get_precision(va_list *ap, t_spec *e)
 	}
 }
 
-static int	get_value(va_list *ap, t_spec *e)
+static int	get_value(t_spec *e)
 {
 	e->type = *e->ptr;
 	if (*e->ptr == 'd' || *e->ptr == 'i')
-		e->value.value = va_arg(*ap, int);
+		e->value.value = va_arg(*e->ap, int);
 	else if (*e->ptr == 'c')
-		e->value.value = va_arg(*ap, int);
+		e->value.value = va_arg(*e->ap, int);
 	else if (*e->ptr == 's')
-		e->value.s = va_arg(*ap, char *);
+		e->value.s = va_arg(*e->ap, char *);
 	else if (*e->ptr == 'u')
-		e->value.u = va_arg(*ap, int);
+		e->value.u = va_arg(*e->ap, int);
 	else if (*e->ptr == 'x')
-		e->value.x = va_arg(*ap, int);
+		e->value.x = va_arg(*e->ap, int);
 	else if (*e->ptr == 'X')
-		e->value.x = va_arg(*ap, int);
+		e->value.x = va_arg(*e->ap, int);
 	else if (*e->ptr == 'p')
-		e->value.p = va_arg(*ap, void*);
+		e->value.p = va_arg(*e->ap, void*);
+	else if (*e->ptr == 'n')
+		e->value.n = va_arg(*e->ap, int*);
 	else if (*e->ptr == '%')
-		e->value.c = '%';//va_arg(*ap, int);
+		e->value.c = '%';
 	else
-		return (0);
+		return (-1);
 	e->ptr++;
-	if (e->precision >= 0 && e->type != '%'/*|| !e->value.p*/)
+	if (e->precision >= 0 && e->type != '%')
 		e->flags.zero = 0;
 	return (1);
 }
@@ -134,31 +136,26 @@ static void	print_e(t_spec *e)
 	printf("%30s %d\n", "int value.i: ", e->value.i);
 	printf("%30s\n", "-------------------------------------------");
 	printf("%30s %s\n", "const char *ptr: ", e->ptr);
+	printf("%30s %p\n", "va_list *ap: ", e->ap);
 	printf("%30s %s\n", "char *result: ", e->result);
 	printf("%30s %d\n", "int size: ", e->size);
 	printf("%30s %s\n", "char *prefix: ", e->prefix);
 	printf("%30s %s\n", "char *itoa: ", e->itoa);
 	printf("%30s %d\n", "int dsize: ", e->dsize);
 	printf("%30s %d\n", "int sign: ", e->sign);
+	printf("%30s %d\n", "int written: ", e->written);
 	printf("%30s\n", "-------------------------------------------");
 #endif
 }
 
-t_spec	*parse(const char *s, va_list *ap)
+int			parse(t_spec *e)
 {
-	t_spec		*e;
-
-	e = ft_calloc(1, sizeof(*e));
-	if (!e)
-		return (0);
-	e->precision = -1;
-	e->ptr = s;
 	//print_e(e);
 	get_flags(e);
-	get_width(ap, e);
-	get_precision(ap, e);
-	if (!get_value(ap, e))
-		return (0);
+	get_width(e);
+	get_precision(e);
+	if (get_value(e) == -1)
+		return (-1);
 	print_e(e);
-	return (e);
+	return (1);
 }
