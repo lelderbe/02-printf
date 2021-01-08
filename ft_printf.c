@@ -11,63 +11,62 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-/*
-static int	str_toupper(char *s)
-{
-	int		count;
 
-	count = 0;
-	while(*s)
-	{
-		*s = ft_toupper(*s);
-		s++;
-		count++;
-	}
-	return (count);
-}
-*/
-int			get_result(t_spec *e)
+static int	get_result(t_spec *e)
 {
 	if (e->type == 'c' || e->type == '%')
-		return (get_c_result(e));
+		return (process_c(e));
 	if (e->type == 'p')
-		return (get_p_result(e));
+		return (process_p(e));
 	if (e->type == 'd' || e->type == 'i')
-		return (get_d_result(e));
+		return (process_d(e));
 	if (e->type == 'u')
-		return (get_u_result(e));
+		return (process_u(e));
 	if (e->type == 'x')
-		return (get_x_result(e));
+		return (process_x(e));
 	if (e->type == 'X')
 		return (process_xx(e));
-	/*
-	{
-		get_x_result(e);
-		return (str_toupper(e->result));
-	}
-	*/
 	if (e->type == 's')
-		return (get_s_result(e));
-	return (0);
+		return (process_s(e));
+	return (-1);
 }
 
 static void	freespec(t_spec *e)
 {
-	(void)e;
 	free(e->prefix);
-	e->prefix = 0;
 	free(e->itoa);
-	e->itoa = 0;
 	free(e);
-	e = 0;
+}
+
+static int	process(size_t *count, const char **format, va_list *ap)
+{
+	t_spec	*e;
+
+	e = parse(*format, ap);
+	if (!e)
+	{
+		ft_putchar_fd('%', 1);
+		*count = *count + 1;
+	}
+	else
+	{
+		if (get_result(e) == -1)
+		{
+			freespec(e);
+			return (-1);
+		}
+		write(1, e->result, e->size);
+		*count = *count + e->size;
+		*format = e->ptr;
+		freespec(e);
+	}
+	return (1);
 }
 
 int			ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	t_spec		*e;
 	size_t		count;
-	int			result;
 
 	count = 0;
 	va_start(ap, format);
@@ -81,25 +80,10 @@ int			ft_printf(const char *format, ...)
 			continue ;
 		}
 		format++;
-		e = parse(format, &ap);
-		if (!e)
+		if (process(&count, &format, &ap) == -1)
 		{
-			ft_putchar_fd('%', 1);
-			count++;
-		}
-		else
-		{
-			result = get_result(e);
-			if (result == -1)
-			{
-				freespec(e);
-				va_end(ap);
-				return (-1);
-			}
-			count = count + result;
-			write(1, e->result, e->size);
-			format = e->ptr;
-			freespec(e);
+			va_end(ap);
+			return (-1);
 		}
 	}
 	va_end(ap);

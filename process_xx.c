@@ -26,7 +26,8 @@ static void	str_toupper(t_spec *e)
 
 int			process_xx(t_spec *e)
 {
-	get_x_result(e);
+	if (process_x(e) == -1)
+		return (-1);
 	str_toupper(e);
 	return (e->size);
 }

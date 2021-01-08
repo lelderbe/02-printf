@@ -29,53 +29,54 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-typedef struct		s_spec {
+typedef struct			s_spec {
 	struct {
 		size_t	left : 1;
 		size_t	zero : 1;
 		size_t	sign : 1;
 		size_t	space : 1;
 		size_t	hash : 1;
-	}				flags;
-	int				width;
-	int				precision;
-	char			type;
+	}					flags;
+	ssize_t				width;
+	int					precision;
+	char				type;
 	union {
-		size_t		padding;
-		void		*p;
-		char		*s;
-		unsigned	u;
-		unsigned	x;
+		size_t			value;
+		void			*p;
+		char			*s;
+		int				*n;
+		unsigned int	u;
+		unsigned int	x;
 		unsigned char	c;
-		int			d;
-		int			i;
-	}				value;
-	const char		*ptr;
-	char			*result;
-	int				size;
-	char			*prefix;
-	char			*itoa;
-	int				dsize;
-	int				psize;
-	int				count;
-	int				sign;
-}					t_spec;
+		int				d;
+		int				i;
+		//long int		li;
+		//long long int	lli;
+	}					value;
+	const char			*ptr;
+	char				*result;
+	int					size;
+	char				*prefix;
+	char				*itoa;
+	int					dsize;
+	int					sign;
+	int					written;
+}						t_spec;
 
-int					ft_printf(const char *format, ...);
-t_spec				*parse(const char *s, va_list *ap);
-int					get_c_result(t_spec *e);
-int					get_d_result(t_spec *e);
-int					get_x_result(t_spec *e);
-int					process_xx(t_spec *e);
-int					get_p_result(t_spec *e);
-int					get_u_result(t_spec *e);
-int					get_s_result(t_spec *e);
-char				*ft_itoa_mod(int n);
-char				*ft_itoa_u(size_t n);
-char				*ft_itoa_x(size_t n);
-void				fill_width2(t_spec *e);
-void				fill_precision2(t_spec *e);
-void				fill_data2(t_spec *e);
-
+int						ft_printf(const char *format, ...);
+t_spec					*parse(const char *s, va_list *ap);
+int						process_c(t_spec *e);
+int						process_d(t_spec *e);
+int						process_p(t_spec *e);
+int						process_u(t_spec *e);
+int						process_s(t_spec *e);
+int						process_x(t_spec *e);
+int						process_xx(t_spec *e);
+char					*ft_itoa_mod(int n);
+char					*ft_itoa_u(size_t n);
+char					*ft_itoa_x(size_t n);
+void					fill_width2(t_spec *e);
+void					fill_precision2(t_spec *e);
+void					fill_data2(t_spec *e);
 
 #endif
