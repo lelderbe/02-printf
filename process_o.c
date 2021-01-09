@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_c.c                                        :+:      :+:    :+:   */
+/*   process_o.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/09 12:10:13 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:10:18 by lelderbe         ###   ########.fr       */
+/*   Created: 2021/01/09 10:29:06 by lelderbe          #+#    #+#             */
+/*   Updated: 2021/01/09 11:28:23 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,29 @@ static int	get_size(t_spec *e)
 {
 	int		size;
 
-	size = e->width ? e->width : 1;
+	size = ft_strlen(e->itoa);
+	size = e->precision == 0 && e->value.o == 0 ? 0 : size;
+	size = e->precision > size ? e->precision : size;
+	if (e->flags.hash)
+		size = size + ft_strlen(e->prefix);
+	size = e->width > size ? e->width : size;
 	return (size);
 }
 
-int			process_c(t_spec *e)
+int			process_o(t_spec *e)
 {
-	e->itoa = ft_strdup(" ");
-	*e->itoa = e->value.c;
-	e->dsize = 1;
-	e->precision = -1;
+	e->prefix = ft_strdup("0");
+	e->itoa = ft_itoa_u(e->value.o, 8);
+	if (!e->itoa)
+		return (-1);
 	e->flags.sign = 0;
 	e->flags.space = 0;
-	e->flags.hash = 0;
 	e->size = get_size(e);
+	e->dsize = ft_strlen(e->itoa);
+	e->dsize = e->precision == 0 && e->value.x == 0 ? 0 : e->dsize;
+	if (e->flags.hash)
+		e->flags.hash = e->precision > e->dsize ? 0 : 1;
+	e->sign = e->flags.hash;
 	e->result = malloc(sizeof(*e->result) * e->size);
 	if (!e->result)
 		return (-1);

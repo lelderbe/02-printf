@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_p.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/09 12:11:23 by lelderbe          #+#    #+#             */
+/*   Updated: 2021/01/09 12:24:11 by lelderbe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libftprintf.h"
 
@@ -31,12 +42,14 @@ int			process_p(t_spec *e)
 	#if defined(__linux) || defined(__APPLE__)
 	{
 		e->prefix = ft_strdup("0x");
-		e->itoa = ft_itoa_x(e->value.value);
+		e->itoa = ft_itoa_u(e->value.value, 16);
 		if (!e->itoa)
 			return (-1);
 		e->sign = 1;
 	}
 	#endif
+	e->flags.hash = 0;
+	e->flags.space = 0;
 	e->size = get_size(e);
 	e->dsize = ft_strlen(e->itoa);
 	e->dsize = e->precision == 0 && e->value.p == 0 ? 0 : e->dsize;

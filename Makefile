@@ -6,11 +6,11 @@
 #    By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/14 15:22:49 by lelderbe          #+#    #+#              #
-#    Updated: 2021/01/08 15:33:29 by lelderbe         ###   ########.fr        #
+#    Updated: 2021/01/09 10:38:28 by lelderbe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_printf.c parser.c process.c utils.c process_s.c process_p.c process_u.c process_c.c process_d.c process_x.c process_xx.c process_n.c
+SRCS		= ft_printf.c parser.c process.c utils.c process_s.c process_p.c process_u.c process_c.c process_d.c process_x.c process_xx.c process_n.c process_o.c
 
 #BONUS_SRCS	= 
 
@@ -27,7 +27,7 @@ OBJS		= ${SRCS:.c=.o}
 #BONUS_OBJS	= ${BONUS_SRCS:.c=.o}
 
 NAME		= libftprintf.a
-#LIBFT_NAME	= libft.a
+LIBFT_NAME	= libft.a
 LIBFT_DIR	= libft
 
 CC			= gcc
@@ -47,12 +47,14 @@ all:		${NAME}
 
 ${NAME}:	LIBFT ${OBJS}
 			#${MAKE} -C ${LIBFT_DIR} all
-			#cp ${LIBFT_DIR}/${LIBFT_NAME} ${NAME}
-			${AR} rc ${NAME} ${OBJS} ${LIBFT_DIR}/*.o
-			#${AR} rc ${NAME} ${OBJS}
+			cp ${LIBFT_DIR}/${LIBFT_NAME} ${NAME}
+			#${AR} rc ${NAME} ${OBJS} ${LIBFT_DIR}/*.o
+			${AR} rc ${NAME} ${OBJS}
 
-LIBFT:		
+LIBFT:		RULE
 			${MAKE} -C ${LIBFT_DIR} all
+
+RULE:
 
 bonus:		${NAME}
 

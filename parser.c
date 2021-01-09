@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/08 15:52:22 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:05:57 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ static void	get_width(t_spec *e)
 
 static void	get_precision(t_spec *e)
 {
+	int		sign;
+
+	sign = 1;
 	if (*e->ptr == '.')
 	{
 		e->ptr++;
@@ -74,6 +77,11 @@ static void	get_precision(t_spec *e)
 		}
 		else
 		{
+			if (*e->ptr == '-')
+			{
+				sign = -1;
+				e->ptr++;
+			}
 			while (ft_isdigit(*e->ptr))
 			{
 				e->precision = e->precision * 10 + (*e->ptr - '0');
@@ -81,19 +89,20 @@ static void	get_precision(t_spec *e)
 			}
 		}
 	}
+	e->precision = e->precision * sign;
 }
 
 static int	get_value(t_spec *e)
 {
 	e->type = *e->ptr;
-	if (*e->ptr == 'd' || *e->ptr == 'i')
+	if (*e->ptr == 'd' || *e->ptr == 'i' || *e->ptr == 'u')
 		e->value.value = va_arg(*e->ap, int);
 	else if (*e->ptr == 'c')
 		e->value.value = va_arg(*e->ap, int);
 	else if (*e->ptr == 's')
 		e->value.s = va_arg(*e->ap, char *);
-	else if (*e->ptr == 'u')
-		e->value.u = va_arg(*e->ap, int);
+	//else if (*e->ptr == 'u')
+	//	e->value.u = va_arg(*e->ap, int);
 	else if (*e->ptr == 'x')
 		e->value.x = va_arg(*e->ap, int);
 	else if (*e->ptr == 'X')
@@ -102,12 +111,15 @@ static int	get_value(t_spec *e)
 		e->value.p = va_arg(*e->ap, void*);
 	else if (*e->ptr == 'n')
 		e->value.n = va_arg(*e->ap, int*);
+	else if (*e->ptr == 'o')
+		e->value.o = va_arg(*e->ap, int);
 	else if (*e->ptr == '%')
 		e->value.c = '%';
 	else
 		return (-1);
 	e->ptr++;
-	if (e->precision >= 0 && e->type != '%')
+	if (e->precision >= 0 && e->type != '%' && e->type != 'c' && e->type != 's')
+	//if (e->precision >= 0 && e->type != '%')
 		e->flags.zero = 0;
 	return (1);
 }

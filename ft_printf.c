@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/08 15:55:47 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 10:39:50 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	get_result(t_spec *e)
 		return (process_s(e));
 	if (e->type == 'n')
 		return (process_n(e));
+	if (e->type == 'o')
+		return (process_o(e));
 	return (-1);
 }
 
