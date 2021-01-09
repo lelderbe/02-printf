@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 10:37:28 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 10:37:38 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:44:10 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fill_data2(t_spec *e)
 	if (e->flags.left)
 	{
 		i = 0;
-		if ((e->flags.sign || e->flags.space || e->flags.hash) && !e->sign)
+		if ((e->flags.plus || e->flags.space || e->flags.hash) && !e->sign)
 			i = i + ft_strlen(e->prefix);
 		if (e->precision > 0 && e->precision > e->dsize)
 			i = i + e->precision - e->dsize;

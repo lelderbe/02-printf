@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 10:39:50 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:41:10 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	init(t_spec *e)
 {
 	e->flags.left = 0;
 	e->flags.zero = 0;
-	e->flags.sign = 0;
+	e->flags.plus = 0;
 	e->flags.space = 0;
 	e->flags.hash = 0;
 	e->width = 0;

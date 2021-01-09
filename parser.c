@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:05:57 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:42:57 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	get_flags(t_spec *e)
 		if (*e->ptr == '0')
 			e->flags.zero = !e->flags.left;
 		if (*e->ptr == ' ')
-			e->flags.space = !e->flags.sign;
+			e->flags.space = !e->flags.plus;
 		if (*e->ptr == '#')
 			e->flags.hash = 1;
 		if (*e->ptr == '-')
@@ -30,7 +30,7 @@ static void	get_flags(t_spec *e)
 		}
 		if (*e->ptr == '+')
 		{
-			e->flags.sign = 1;
+			e->flags.plus = 1;
 			//e->flags.hash = 0;
 			e->flags.space = 0;
 		}
@@ -131,7 +131,7 @@ static void	print_e(t_spec *e)
 	printf(" ----- elem: ------\n");
 	printf("%30s %d\n", "flags.left: ", e->flags.left);
 	printf("%30s %d\n", "flags.zero: ", e->flags.zero);
-	printf("%30s %d\n", "flags.sign: ", e->flags.sign);
+	printf("%30s %d\n", "flags.plus: ", e->flags.plus);
 	printf("%30s %d\n", "flags.space: ", e->flags.space);
 	printf("%30s %d\n", "flags.hash: ", e->flags.hash);
 	printf("%30s\n", "-------------------------------------------");

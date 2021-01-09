@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:10:33 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:10:52 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:46:02 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ int			process_d(t_spec *e)
 	//	e->flags.space = !e->flags.left;
 	//e->flags.space = e->flags.space ? !e->flags.left : e->flags.space;
 	e->flags.hash = 0;
-	e->sign = e->flags.sign || e->flags.space;
+	e->sign = e->flags.plus || e->flags.space;
 	if (e->precision >= 0)
 		e->flags.zero = 0;
 	if (e->flags.space)
 	{
 		*e->prefix = ' ';
-		e->flags.sign = 1;
+		e->flags.plus = 1; // ????
 	}
 	if (e->value.d < 0)
 	{
-		e->flags.sign = 1;
+		e->flags.plus = 1;
 		e->flags.space = 0;
 		*e->prefix = '-';
 		e->sign = 1;

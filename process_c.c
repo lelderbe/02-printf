@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:10:13 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:10:18 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:44:32 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			process_c(t_spec *e)
 	*e->itoa = e->value.c;
 	e->dsize = 1;
 	e->precision = -1;
-	e->flags.sign = 0;
+	e->flags.plus = 0;
 	e->flags.space = 0;
 	e->flags.hash = 0;
 	e->size = get_size(e);

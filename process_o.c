@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 10:29:06 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 11:28:23 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 12:46:20 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			process_o(t_spec *e)
 	e->itoa = ft_itoa_u(e->value.o, 8);
 	if (!e->itoa)
 		return (-1);
-	e->flags.sign = 0;
+	e->flags.plus = 0;
 	e->flags.space = 0;
 	e->size = get_size(e);
 	e->dsize = ft_strlen(e->itoa);
