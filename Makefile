@@ -27,7 +27,7 @@ OBJS		= ${SRCS:.c=.o}
 #BONUS_OBJS	= ${BONUS_SRCS:.c=.o}
 
 NAME		= libftprintf.a
-LIBFT_NAME	= libft.a
+#LIBFT_NAME	= libft.a
 LIBFT_DIR	= libft
 
 CC			= gcc
@@ -39,35 +39,31 @@ RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 
 %.o:		%.c ${HEADERS}
-			#cd ${LIBFT_DIR} && ${MAKE} all
-			${MAKE} -C ${LIBFT_DIR} all
+#			cd ${LIBFT_DIR} && ${MAKE} all
+#			${MAKE} -C ${LIBFT_DIR} all
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all:		${NAME}
 
-#${NAME}:	LIBFT ${OBJS}
-${NAME}:	${OBJS}
-			cp ${LIBFT_DIR}/${LIBFT_NAME} ${NAME}
-			#${AR} rc ${NAME} ${OBJS} libft/*.o
-			${AR} rc ${NAME} ${OBJS}
+${NAME}:	LIBFT ${OBJS}
+			#${MAKE} -C ${LIBFT_DIR} all
+			#cp ${LIBFT_DIR}/${LIBFT_NAME} ${NAME}
+			${AR} rc ${NAME} ${OBJS} ${LIBFT_DIR}/*.o
+			#${AR} rc ${NAME} ${OBJS}
 
-LIBFT:		RULE
-			#cd libft && ${MAKE} all
+LIBFT:		
 			${MAKE} -C ${LIBFT_DIR} all
 
-RULE:
-
-#bonus:		
-#			@$(MAKE) BONUS=1 ${NAME}
+bonus:		${NAME}
 
 clean:
 			${RM} ${OBJS}
-			${RM} ${BONUS_OBJS}
-			cd libft && ${MAKE} clean
+			${MAKE} -C ${LIBFT_DIR} clean
 
 fclean:		clean
 			${RM} ${NAME}
-			cd libft && ${MAKE} fclean
+			${MAKE} -C ${LIBFT_DIR} fclean
+#			cd libft && ${MAKE} fclean
 
 re:			fclean all
 
