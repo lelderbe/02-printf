@@ -25,13 +25,16 @@ static int	get_size(t_spec *e)
 
 int			process_u(t_spec *e)
 {
-	if (!(e->itoa = ft_itoa_u(e->value.u, 10)))
+	if (!(e->itoa = ft_itoa_u(e->value.value, 10)))
 		return (-1);
-	e->flags.hash = 0;
-	e->flags.space = 0;
-	e->size = get_size(e);
 	e->dsize = ft_strlen(e->itoa);
 	e->dsize = e->precision == 0 && e->value.u == 0 ? 0 : e->dsize;
+	e->flags.plus = 0;
+	e->flags.space = 0;
+	e->flags.hash = 0;
+	e->flags.zero = e->precision >= 0 ? 0 : e->flags.zero;
+	e->sign = 0;
+	e->size = get_size(e);
 	if (!(e->result = malloc(sizeof(*e->result) * e->size)))
 		return (-1);
 	fill_width2(e);

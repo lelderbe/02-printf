@@ -10,21 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_printf.c parser.c process.c utils.c process_s.c process_p.c process_u.c process_c.c process_d.c process_x.c process_xx.c process_n.c process_o.c
-
-#BONUS_SRCS	= 
+SRCS		= ft_printf.c parser.c process.c utils.c process_s.c process_p.c process_u.c process_c.c process_d.c process_x.c process_xx.c process_n.c process_o.c debug.c
 
 HEADERS		= libftprintf.h
 
-#ifdef BONUS
-#	OBJS = ${COMMON_OBJS} ${BONUS_OBJS}
-#else
-#	OBJS = ${COMMON_OBJS}
-#endif
-
 OBJS		= ${SRCS:.c=.o}
-
-#BONUS_OBJS	= ${BONUS_SRCS:.c=.o}
 
 NAME		= libftprintf.a
 LIBFT_NAME	= libft.a
@@ -39,16 +29,12 @@ RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 
 %.o:		%.c ${HEADERS}
-#			cd ${LIBFT_DIR} && ${MAKE} all
-#			${MAKE} -C ${LIBFT_DIR} all
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all:		${NAME}
 
 ${NAME}:	LIBFT ${OBJS}
-			#${MAKE} -C ${LIBFT_DIR} all
 			cp ${LIBFT_DIR}/${LIBFT_NAME} ${NAME}
-			#${AR} rc ${NAME} ${OBJS} ${LIBFT_DIR}/*.o
 			${AR} rc ${NAME} ${OBJS}
 
 LIBFT:		RULE

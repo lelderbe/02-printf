@@ -25,36 +25,39 @@ static int	get_size(t_spec *e)
 	return (size);
 }
 
+static char	*get_itoa(t_spec *e)
+{
+	if (e->length == 'h')
+		return (ft_itoa_mod(e->value.h));
+	if (e->length == 'H')
+		return (ft_itoa_mod(e->value.hh));
+	if (e->length == 'l')
+		return (ft_itoa_mod(e->value.l));
+	if (e->length == 'L')
+		return (ft_itoa_mod(e->value.ll));
+	return (ft_itoa_mod(e->value.d));
+}
+
 int			process_d(t_spec *e)
 {
-	e->prefix = ft_strdup("+");
-	e->itoa = ft_itoa_mod(e->value.d);
-	if (!e->itoa)
+	if (!(e->itoa = get_itoa(e)))
 		return (-1);
-	//if (e->flags.space)
-	//	e->flags.space = !e->flags.left;
-	//e->flags.space = e->flags.space ? !e->flags.left : e->flags.space;
+	e->dsize = ft_strlen(e->itoa);
+	e->dsize = e->precision == 0 && e->value.ll == 0 ? 0 : e->dsize;
+	e->prefix = ft_strdup("+");
 	e->flags.hash = 0;
-	e->sign = e->flags.plus || e->flags.space;
-	if (e->precision >= 0)
-		e->flags.zero = 0;
+	e->flags.zero = e->precision >= 0 ? 0 : e->flags.zero;
 	if (e->flags.space)
-	{
 		*e->prefix = ' ';
-		e->flags.plus = 1; // ????
-	}
-	if (e->value.d < 0)
+	if (e->value.ll < 0)
 	{
+		*e->prefix = '-';
 		e->flags.plus = 1;
 		e->flags.space = 0;
-		*e->prefix = '-';
-		e->sign = 1;
 	}
+	e->sign = e->flags.plus || e->flags.space;
 	e->size = get_size(e);
-	e->dsize = ft_strlen(e->itoa);
-	e->dsize = e->precision == 0 && e->value.d == 0 ? 0 : e->dsize;
-	e->result = malloc(sizeof(*e->result) * e->size);
-	if (!e->result)
+	if (!(e->result = malloc(sizeof(*e->result) * e->size)))
 		return (-1);
 	fill_width2(e);
 	fill_precision2(e);

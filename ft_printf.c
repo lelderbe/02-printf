@@ -45,7 +45,7 @@ static int	process(t_spec *e, const char **format)
 {
 	if (parse(e) == -1)
 	{
-		ft_putchar_fd('%', 1);
+		write(1, "%", 1);
 		e->written++;
 	}
 	else
@@ -81,6 +81,7 @@ static void	init(t_spec *e)
 	e->itoa = 0;
 	e->dsize = 0;
 	e->sign = 0;
+	e->length = 0;
 }
 
 int			ft_printf(const char *format, ...)
@@ -95,9 +96,8 @@ int			ft_printf(const char *format, ...)
 	{
 		if (*format != '%')
 		{
-			ft_putchar_fd(*format, 1);
+			write(1, format++, 1);
 			e.written++;
-			format++;
 			continue ;
 		}
 		format++;

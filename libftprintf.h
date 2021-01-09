@@ -14,16 +14,14 @@
 # define LIBFTPRINTF_H
 
 # ifdef __linux__
-#  define P_NULL_TEXT	"(nil)"
 #  define S_NULL_TEXT	"(null)"
 # endif
 
 # ifdef __APPLE__
-#  define P_NULL_TEXT	"(null)"
 #  define S_NULL_TEXT	"(null)"
 # endif
 
-//# define DEBUG
+# define DEBUG
 
 # include "libft/libft.h"
 # include <stdarg.h>
@@ -39,47 +37,56 @@ typedef struct			s_spec {
 	}					flags;
 	ssize_t				width;
 	int					precision;
+	char				length;
 	char				type;
 	union {
-		size_t			value;
-		void			*p;
-		char			*s;
-		int				*n;
-		unsigned int	u;
-		unsigned int	x;
-		unsigned int	o;
-		unsigned char	c;
-		int				d;
-		int				i;
-		//long int		li;
-		//long long int	lli;
-	}					value;
-	const char			*ptr;
-	va_list				*ap;
-	char				*result;
-	int					size;
-	char				*prefix;
-	char				*itoa;
-	int					dsize;
-	int					sign;
-	int					written;
-}						t_spec;
+		size_t				value;
+		void				*p;
+		char				*s;
+		short int			*nh;
+		unsigned char		*nhh;
+		int					*n;
+		long int			*nl;
+		long long int		*nll;
+		unsigned int		u;
+		unsigned long long	ull;
+		unsigned int		x;
+		unsigned int		o;
+		unsigned char		c;
+		int					d;
+		int					i;
+		short int			h;
+		char				hh;
+		long int			l;
+		long long int		ll;
+	}						value;
+	const char				*ptr;
+	va_list					*ap;
+	char					*result;
+	int						size;
+	char					*prefix;
+	char					*itoa;
+	int						dsize;
+	int						sign;
+	int						written;
+}							t_spec;
 
-int						ft_printf(const char *format, ...);
-int						parse(t_spec *e);
-int						process_c(t_spec *e);
-int						process_d(t_spec *e);
-int						process_p(t_spec *e);
-int						process_u(t_spec *e);
-int						process_s(t_spec *e);
-int						process_x(t_spec *e);
-int						process_xx(t_spec *e);
-int						process_n(t_spec *e);
-int						process_o(t_spec *e);
-void					fill_width2(t_spec *e);
-void					fill_precision2(t_spec *e);
-void					fill_data2(t_spec *e);
-char					*ft_itoa_mod(int n);
-char					*ft_itoa_u(size_t n, int base);
+int							ft_printf(const char *format, ...);
+int							parse(t_spec *e);
+int							process_c(t_spec *e);
+int							process_d(t_spec *e);
+int							process_p(t_spec *e);
+int							process_u(t_spec *e);
+int							process_s(t_spec *e);
+int							process_x(t_spec *e);
+int							process_xx(t_spec *e);
+int							process_n(t_spec *e);
+int							process_o(t_spec *e);
+void						fill_width2(t_spec *e);
+void						fill_precision2(t_spec *e);
+void						fill_data2(t_spec *e);
+char						*ft_itoa_mod(long long int n);
+char						*ft_itoa_u(size_t n, int base);
+void						debug_print_e(t_spec *e);
 
 #endif

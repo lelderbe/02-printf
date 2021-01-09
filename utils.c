@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static size_t	get_length_int(int n)
+static size_t	get_length_int(long long int n)
 {
 	size_t	result;
 
@@ -32,7 +32,7 @@ static size_t	get_length_u_base(size_t n, int base)
 	return (result);
 }
 
-char			*ft_itoa_mod(int n)
+char			*ft_itoa_mod(long long int n)
 {
 	char	*result;
 	size_t	length;
