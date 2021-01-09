@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:53:14 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/08 15:54:53 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/09 13:01:10 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	str_toupper(t_spec *e)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while(i < e->size)
+	while (i < e->size)
 	{
 		e->result[i] = ft_toupper(e->result[i]);
 		i++;
