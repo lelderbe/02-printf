@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:11:35 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 13:08:42 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 12:50:44 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int			process_s(t_spec *e)
 	e->precision = e->precision > e->dsize ? e->dsize : e->precision;
 	if (!(e->result = malloc(sizeof(*e->result) * e->size)))
 		return (-1);
-	fill_width2(e);
-	fill_precision2(e);
-	fill_data2(e);
+	fill_width(e);
+	fill_precision(e);
+	fill_data(e);
 	return (e->size);
 }

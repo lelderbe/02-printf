@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 10:29:06 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 11:33:06 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 12:55:36 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static int	get_size(t_spec *e)
 static char	*get_itoa(t_spec *e)
 {
 	if (e->length == 'h')
-		return (ft_itoa_u(e->value.hu, 8));
+		return (ft_itoa_u_base(e->value.hu, 8));
 	if (e->length == 'H')
-		return (ft_itoa_u(e->value.hhu, 8));
+		return (ft_itoa_u_base(e->value.hhu, 8));
 	if (e->length == 'l')
-		return (ft_itoa_u(e->value.lu, 8));
+		return (ft_itoa_u_base(e->value.lu, 8));
 	if (e->length == 'L')
-		return (ft_itoa_u(e->value.llu, 8));
-	return (ft_itoa_u(e->value.o, 8));
+		return (ft_itoa_u_base(e->value.llu, 8));
+	return (ft_itoa_u_base(e->value.o, 8));
 }
 
 int			process_o(t_spec *e)
@@ -61,8 +61,8 @@ int			process_o(t_spec *e)
 	e->size = get_size(e);
 	if (!(e->result = malloc(sizeof(*e->result) * e->size)))
 		return (-1);
-	fill_width2(e);
-	fill_precision2(e);
-	fill_data2(e);
+	fill_width(e);
+	fill_precision(e);
+	fill_data(e);
 	return (e->size);
 }

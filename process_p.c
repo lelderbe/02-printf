@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:11:23 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 13:12:24 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 12:54:51 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_size(t_spec *e)
 
 int			process_p(t_spec *e)
 {
-	if (!(e->itoa = ft_itoa_u(e->value.value, 16)))
+	if (!(e->itoa = ft_itoa_u_base(e->value.value, 16)))
 		return (-1);
 	e->dsize = ft_strlen(e->itoa);
 	e->dsize = e->precision == 0 && e->value.p == 0 ? 0 : e->dsize;
@@ -39,8 +39,8 @@ int			process_p(t_spec *e)
 	e->size = get_size(e);
 	if (!(e->result = malloc(sizeof(*e->result) * e->size)))
 		return (-1);
-	fill_width2(e);
-	fill_precision2(e);
-	fill_data2(e);
+	fill_width(e);
+	fill_precision(e);
+	fill_data(e);
 	return (e->size);
 }

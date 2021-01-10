@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 11:38:21 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 12:56:27 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@
 #  define S_NULL_TEXT	"(null)"
 # endif
 
-# define DEBUG
-
 # include "libft/libft.h"
 # include <stdarg.h>
-# include <stdio.h>
 
 typedef struct				s_spec {
 	struct {
@@ -85,11 +82,10 @@ int							process_x(t_spec *e);
 int							process_xx(t_spec *e);
 int							process_n(t_spec *e);
 int							process_o(t_spec *e);
-void						fill_width2(t_spec *e);
-void						fill_precision2(t_spec *e);
-void						fill_data2(t_spec *e);
+void						fill_width(t_spec *e);
+void						fill_precision(t_spec *e);
+void						fill_data(t_spec *e);
 char						*ft_itoa_mod(long long int n);
-char						*ft_itoa_u(size_t n, int base);
-void						debug_print_e(t_spec *e);
+char						*ft_itoa_u_base(size_t n, int base);
 
 #endif

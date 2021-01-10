@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:41:10 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 13:05:47 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	freespec(t_spec *e)
 {
 	free(e->prefix);
 	free(e->itoa);
+	free(e->result);
 }
 
 static int	process(t_spec *e, const char **format)

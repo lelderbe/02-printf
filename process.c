@@ -6,13 +6,13 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 10:37:28 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:44:10 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 12:50:19 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	fill_width2(t_spec *e)
+void	fill_width(t_spec *e)
 {
 	if (e->flags.zero)
 	{
@@ -27,7 +27,7 @@ void	fill_width2(t_spec *e)
 		ft_memset(e->result, ' ', e->size);
 }
 
-void	fill_precision2(t_spec *e)
+void	fill_precision(t_spec *e)
 {
 	int		i;
 
@@ -49,7 +49,7 @@ void	fill_precision2(t_spec *e)
 	ft_memset(e->result + i, '0', e->precision);
 }
 
-void	fill_data2(t_spec *e)
+void	fill_data(t_spec *e)
 {
 	int		i;
 

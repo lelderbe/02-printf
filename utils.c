@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:24:54 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 13:00:02 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 12:55:05 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char			*ft_itoa_mod(long long int n)
 	return (result);
 }
 
-char			*ft_itoa_u(size_t n, int base)
+char			*ft_itoa_u_base(size_t n, int base)
 {
 	char		*result;
 	size_t		length;
