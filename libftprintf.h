@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 13:25:25 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 17:45:30 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct				s_spec {
 		size_t	hash : 1;
 	}						flags;
 	ssize_t					width;
-	int						precision;
+	ssize_t					precision;
 	char					length;
 	char					type;
 	union {

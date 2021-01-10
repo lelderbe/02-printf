@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:14:09 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 12:54:16 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 17:08:27 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int			process_x(t_spec *e)
 		return (-1);
 	e->dsize = ft_strlen(e->itoa);
 	e->dsize = e->precision == 0 && e->value.value == 0 ? 0 : e->dsize;
-	e->prefix = ft_strdup("0x");
+	if (!(e->prefix = ft_strdup("0x")))
+		return (-1);
 	e->flags.plus = 0;
 	e->flags.space = 0;
 	if (e->flags.hash && e->value.value == 0)
