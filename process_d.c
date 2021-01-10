@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:10:33 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:46:02 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 11:30:21 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_size(t_spec *e)
 	int		size;
 
 	size = ft_strlen(e->itoa);
-	size = e->precision == 0 && e->value.d == 0 ? 0 : size;
+	size = e->precision == 0 && e->value.value == 0 ? 0 : size;
 	size = e->precision > size ? e->precision : size;
 	if (e->sign)
 		size++;

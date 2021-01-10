@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:11:02 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:11:06 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 11:22:43 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int			process_n(t_spec *e)
 {
 	if (e->length == 'h')
-		*e->value.nh = e->written;
+		*e->value.hn = e->written;
 	if (e->length == 'H')
-		*e->value.nhh = e->written;
+		*e->value.hhn = e->written;
 	if (e->length == 'l')
-		*e->value.nl = e->written;
+		*e->value.ln = e->written;
 	if (e->length == 'L')
-		*e->value.nll = e->written;
+		*e->value.lln = e->written;
 	*e->value.n = e->written;
 	return (0);
 }

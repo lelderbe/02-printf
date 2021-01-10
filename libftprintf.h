@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:40:52 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 11:38:21 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,32 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-typedef struct			s_spec {
+typedef struct				s_spec {
 	struct {
 		size_t	left : 1;
 		size_t	zero : 1;
 		size_t	plus : 1;
 		size_t	space : 1;
 		size_t	hash : 1;
-	}					flags;
-	ssize_t				width;
-	int					precision;
-	char				length;
-	char				type;
+	}						flags;
+	ssize_t					width;
+	int						precision;
+	char					length;
+	char					type;
 	union {
 		size_t				value;
 		void				*p;
 		char				*s;
-		short int			*nh;
-		unsigned char		*nhh;
+		signed char			*hhn;
+		short				*hn;
 		int					*n;
-		long int			*nl;
-		long long int		*nll;
+		long				*ln;
+		long long			*lln;
+		unsigned char		hhu;
+		unsigned short		hu;
 		unsigned int		u;
-		unsigned long long	ull;
+		unsigned long		lu;
+		unsigned long long	llu;
 		unsigned int		x;
 		unsigned int		o;
 		unsigned char		c;

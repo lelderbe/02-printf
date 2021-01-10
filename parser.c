@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/09 12:42:57 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/10 11:37:46 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,6 @@ static void	get_precision(t_spec *e)
 	}
 }
 
-static void	get_length(t_spec *e)
-{
-	e->length = *e->ptr;
-	if (*e->ptr == 'h' || *e->ptr == 'l')
-	{
-		e->ptr++;
-		if (e->length == *e->ptr)
-		{
-			e->length = ft_toupper(e->length);
-			e->ptr++;
-		}
-	}
-}
-
 static int	get_value(t_spec *e)
 {
 	e->type = *e->ptr;
@@ -112,13 +98,6 @@ static int	get_value(t_spec *e)
 	}
 	else if (*e->ptr == 's' || *e->ptr == 'p' || *e->ptr == 'n')
 		e->value.p = va_arg(*e->ap, void*);
-	/*
-		e->value.s = va_arg(*e->ap, char*);
-	else if (*e->ptr == 'p')
-		e->value.p = va_arg(*e->ap, void*);
-	else if (*e->ptr == 'n')
-		e->value.n = va_arg(*e->ap, int*);
-	*/
 	else if (*e->ptr == '%')
 		e->value.c = '%';
 	else
@@ -132,9 +111,17 @@ int			parse(t_spec *e)
 	get_flags(e);
 	get_width(e);
 	get_precision(e);
-	get_length(e);
+	e->length = *e->ptr;
+	if (*e->ptr == 'h' || *e->ptr == 'l')
+	{
+		e->ptr++;
+		if (e->length == *e->ptr)
+		{
+			e->length = ft_toupper(e->length);
+			e->ptr++;
+		}
+	}
 	if (get_value(e) == -1)
 		return (-1);
-	//debug_print_e(e);
 	return (1);
 }
