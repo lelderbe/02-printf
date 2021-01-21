@@ -6,13 +6,13 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:43:55 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 11:37:46 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:02:02 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void	get_flags(t_spec *e)
+static void	parse_flags(t_spec *e)
 {
 	while (*e->ptr == '0' || *e->ptr == '-' ||
 			*e->ptr == '+' || *e->ptr == ' ' || *e->ptr == '#')
@@ -37,11 +37,11 @@ static void	get_flags(t_spec *e)
 	}
 }
 
-static void	get_width(t_spec *e)
+static void	parse_width(t_spec *e)
 {
 	if (*e->ptr == '*')
 	{
-		e->width = va_arg(*e->ap, int);
+		e->width = va_arg(e->ap, int);
 		if (e->width < 0)
 		{
 			e->flags.left = 1;
@@ -60,7 +60,7 @@ static void	get_width(t_spec *e)
 	}
 }
 
-static void	get_precision(t_spec *e)
+static void	parse_precision(t_spec *e)
 {
 	if (*e->ptr == '.')
 	{
@@ -68,7 +68,7 @@ static void	get_precision(t_spec *e)
 		e->precision = 0;
 		if (*e->ptr == '*')
 		{
-			e->precision = va_arg(*e->ap, int);
+			e->precision = va_arg(e->ap, int);
 			e->ptr++;
 		}
 		else
@@ -82,7 +82,7 @@ static void	get_precision(t_spec *e)
 	}
 }
 
-static int	get_value(t_spec *e)
+static int	parse_value(t_spec *e)
 {
 	e->type = *e->ptr;
 	if (*e->ptr == 'd' || *e->ptr == 'i' || *e->ptr == 'u' ||
@@ -90,27 +90,27 @@ static int	get_value(t_spec *e)
 			*e->ptr == 'c')
 	{
 		if (e->length == 'l')
-			e->value.value = va_arg(*e->ap, long int);
+			e->value.value = va_arg(e->ap, long int);
 		else if (e->length == 'L')
-			e->value.value = va_arg(*e->ap, long long int);
+			e->value.value = va_arg(e->ap, long long int);
 		else
-			e->value.value = va_arg(*e->ap, int);
+			e->value.value = va_arg(e->ap, int);
 	}
 	else if (*e->ptr == 's' || *e->ptr == 'p' || *e->ptr == 'n')
-		e->value.p = va_arg(*e->ap, void*);
+		e->value.p = va_arg(e->ap, void*);
 	else if (*e->ptr == '%')
 		e->value.c = '%';
 	else
-		return (-1);
+		return (0);
 	e->ptr++;
 	return (1);
 }
 
 int			parse(t_spec *e)
 {
-	get_flags(e);
-	get_width(e);
-	get_precision(e);
+	parse_flags(e);
+	parse_width(e);
+	parse_precision(e);
 	e->length = *e->ptr;
 	if (*e->ptr == 'h' || *e->ptr == 'l')
 	{
@@ -121,7 +121,7 @@ int			parse(t_spec *e)
 			e->ptr++;
 		}
 	}
-	if (get_value(e) == -1)
-		return (-1);
+	if (!parse_value(e))
+		return (0);
 	return (1);
 }

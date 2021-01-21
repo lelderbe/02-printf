@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:26:16 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 17:45:30 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:23:26 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct				s_spec {
 		long long int		ll;
 	}						value;
 	const char				*ptr;
-	va_list					*ap;
+	va_list					ap;
 	char					*result;
 	int						size;
 	char					*prefix;

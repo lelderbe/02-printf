@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:30:39 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 13:05:47 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:22:55 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	get_result(t_spec *e)
 		return (process_n(e));
 	if (e->type == 'o')
 		return (process_o(e));
-	return (-1);
+	return (0);
 }
 
 static void	freespec(t_spec *e)
@@ -42,29 +42,23 @@ static void	freespec(t_spec *e)
 	free(e->result);
 }
 
-static int	process(t_spec *e, const char **format)
+static int	parse_and_print(t_spec *e)
 {
-	if (parse(e) == -1)
+	if (parse(e))
 	{
-		write(1, "%", 1);
-		e->written++;
-	}
-	else
-	{
-		if (get_result(e) == -1)
+		if (!get_result(e))
 		{
 			freespec(e);
-			return (-1);
+			return (0);
 		}
 		write(1, e->result, e->size);
 		e->written = e->written + e->size;
-		*format = e->ptr;
 		freespec(e);
 	}
 	return (1);
 }
 
-static void	init(t_spec *e)
+static void	clear(t_spec *e)
 {
 	e->flags.left = 0;
 	e->flags.zero = 0;
@@ -73,43 +67,40 @@ static void	init(t_spec *e)
 	e->flags.hash = 0;
 	e->width = 0;
 	e->precision = -1;
+	e->length = 0;
 	e->type = 0;
 	e->value.value = 0;
-	e->ptr = 0;
 	e->result = 0;
 	e->size = 0;
 	e->prefix = 0;
 	e->itoa = 0;
 	e->dsize = 0;
 	e->sign = 0;
-	e->length = 0;
 }
 
 int			ft_printf(const char *format, ...)
 {
-	va_list		ap;
 	t_spec		e;
 
-	va_start(ap, format);
-	e.ap = &ap;
 	e.written = 0;
-	while (*format)
+	e.ptr = format;
+	va_start(e.ap, format);
+	while (*e.ptr)
 	{
-		if (*format != '%')
+		if (*e.ptr != '%')
 		{
-			write(1, format++, 1);
+			write(1, e.ptr++, 1);
 			e.written++;
 			continue ;
 		}
-		format++;
-		init(&e);
-		e.ptr = format;
-		if (process(&e, &format) == -1)
+		e.ptr++;
+		clear(&e);
+		if (!parse_and_print(&e))
 		{
-			va_end(ap);
+			va_end(e.ap);
 			return (-1);
 		}
 	}
-	va_end(ap);
+	va_end(e.ap);
 	return (e.written);
 }

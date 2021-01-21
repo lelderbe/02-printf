@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:11:02 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 13:22:49 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:14:50 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int			process_n(t_spec *e)
 		*e->value.lln = e->written;
 	else
 		*e->value.n = e->written;
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lelderbe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:11:23 by lelderbe          #+#    #+#             */
-/*   Updated: 2021/01/10 17:51:16 by lelderbe         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:14:28 by lelderbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static int	get_size(t_spec *e)
 int			process_p(t_spec *e)
 {
 	if (!(e->itoa = ft_itoa_u_base(e->value.value, 16)))
-		return (-1);
+		return (0);
 	e->dsize = ft_strlen(e->itoa);
 	e->dsize = e->precision == 0 && e->value.p == 0 ? 0 : e->dsize;
 	if (!(e->prefix = ft_strdup("0x")))
-		return (-1);
+		return (0);
 	e->flags.plus = 0;
 	e->flags.space = 0;
 	e->flags.hash = 0;
@@ -39,9 +39,9 @@ int			process_p(t_spec *e)
 	e->sign = 1;
 	e->size = get_size(e);
 	if (!(e->result = malloc(sizeof(*e->result) * e->size)))
-		return (-1);
+		return (0);
 	fill_width(e);
 	fill_precision(e);
 	fill_data(e);
-	return (e->size);
+	return (1);
 }
