@@ -21,7 +21,7 @@
 #  define S_NULL_TEXT	"(null)"
 # endif
 
-# include "libft/libft.h"
+# include "libft.h"
 # include <stdarg.h>
 
 typedef struct				s_spec {

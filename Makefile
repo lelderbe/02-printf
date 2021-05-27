@@ -10,15 +10,20 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_printf.c parser.c process.c utils.c process_s.c process_p.c process_u.c process_c.c process_d.c process_x.c process_xx.c process_n.c process_o.c
+SRCS		= ft_printf.c parser.c utils.c \
+			  process.c process_s.c process_p.c process_u.c process_c.c \
+			  process_d.c process_x.c process_xx.c process_n.c process_o.c
 
 HEADERS		= libftprintf.h
 
 OBJS		= ${SRCS:.c=.o}
 
 NAME		= libftprintf.a
-LIBFT_NAME	= libft.a
-LIBFT_DIR	= libft
+
+LIBFT		= libft.a
+LIBFT_DIR	= libft/
+
+INCLUDES	= -I${LIBFT_DIR}
 
 CC			= gcc
 
@@ -29,18 +34,16 @@ RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 
 %.o:		%.c ${HEADERS}
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+			${CC} ${CFLAGS} ${INCLUDES} -c $< -o ${<:.c=.o}
 
 all:		${NAME}
 
-${NAME}:	LIBFT ${OBJS}
-			cp ${LIBFT_DIR}/${LIBFT_NAME} ${NAME}
+${NAME}:	${LIBFT_DIR}${LIBFT} ${OBJS}
+			cp ${LIBFT_DIR}${LIBFT} ${NAME}
 			${AR} rc ${NAME} ${OBJS}
 
-LIBFT:		RULE
-			${MAKE} -C ${LIBFT_DIR} all
-
-RULE:
+${LIBFT_DIR}${LIBFT}:	${LIBFT_DIR}
+			${MAKE} -C ${LIBFT_DIR} bonus
 
 bonus:		${NAME}
 
